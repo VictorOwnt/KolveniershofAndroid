@@ -9,6 +9,8 @@ import javax.inject.Singleton
 @Component(modules = [NetworkModule::class])
 interface ViewModelInjectorComponent {
 
+    fun inject(userViewModel: UserViewModel)
+
     @Component.Builder
     interface Builder {
         fun build(): ViewModelInjectorComponent
