@@ -35,9 +35,9 @@ class UserViewModel : BaseViewModel() {
      * @param password
      * @return user with token
      */
-    fun register(firstName: String, lastName: String, email: String, password: String): User {
+    fun register(firstName: String, lastName: String, email: String, password: String, isAdmin: Boolean = false): User {
         try {
-            return kolvApi.register(firstName, lastName, email, password)
+            return kolvApi.register(firstName, lastName, email, password, isAdmin)
                 .doOnError { error -> onRetrieveError(error) }
                 .blockingGet()
         } catch (e: Exception) {

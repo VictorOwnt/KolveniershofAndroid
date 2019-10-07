@@ -3,6 +3,7 @@ package be.hogent.kolveniershof.model
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 /**
  * User entity
@@ -11,7 +12,11 @@ import kotlinx.android.parcel.Parcelize
  * @property firstName
  * @property lastName
  * @property email
- * @property token (only for logged in user)
+ * @property isAdmin
+ * @property birthday
+ * @property absentDates
+ * @property imgUrl
+ * @property token
  */
 @Parcelize
 data class User(
@@ -23,7 +28,16 @@ data class User(
     val lastName: String,
     @field:Json(name = "email")
     val email: String,
-    // TODO - all fields
+    @field:Json(name = "admin")
+    val isAdmin: Boolean = false,
+    @field:Json(name = "birthday")
+    val birthday: Date,
+    //@field:Json(name = group)
+    //val group: Group,
+    @field:Json(name = "absentDates")
+    val absentDates: MutableList<Date> = mutableListOf(),
+    @field:Json(name = "picture")
+    val imgUrl: String? = null,
     @field:Json(name = "tempToken")
     val token: String? = null
 ) : Parcelable

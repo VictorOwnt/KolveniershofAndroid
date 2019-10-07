@@ -1,6 +1,5 @@
 package be.hogent.kolveniershof.ui
 
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -72,7 +71,7 @@ class LoginFragment : Fragment() {
                     .putString("FIRSTNAME", loggedInUser.firstName)
                     .putString("LASTNAME", loggedInUser.lastName)
                     .putString("EMAIL", loggedInUser.email)
-                    // TODO - admin
+                    .putBoolean("ADMIN", loggedInUser.isAdmin)
                     .putString("TOKEN", "Bearer " + loggedInUser.token)
                     .putBoolean("ISLOGGEDIN", true)
                     .apply()

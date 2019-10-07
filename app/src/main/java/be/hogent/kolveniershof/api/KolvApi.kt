@@ -22,8 +22,8 @@ interface KolvApi {
         @Field("firstName") firstName: String,
         @Field("lastName") lastName: String,
         @Field("email") email: String,
-        @Field("password") password: String
-        // TODO - admin
+        @Field("password") password: String,
+        @Field("admin") isAdmin: Boolean
     ): Single<User>
 
     /**
