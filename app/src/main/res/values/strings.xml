@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">Kolveniershof</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="action_cancel">Annuleren</string>
+    <string name="action_save">Opslaan</string>
+    <string name="action_new">Nieuw</string>
+
+    <string name="menu_logout">Afmelden</string>
+    <string name="account">Account</string>
+
     <string name="welcome">Welkom</string>
     <string name="welcomeback">Welkom terug</string>
     <string name="logout">Afmelden succesvol</string>
@@ -15,4 +28,6 @@
     <string name="incorrect_email">Ongeldig emailadres</string>
     <string name="incorrect_password">Ongeldig wachtwoord</string>
     <string name="required">Verplicht</string>
+
+
 </resources>
