@@ -29,5 +29,9 @@
     <string name="incorrect_password">Ongeldig wachtwoord</string>
     <string name="required">Verplicht</string>
 
+    <string name="activity_icon_content_description">Icoon activiteit</string>
+    <string name="mentor_image_content_description">Afbeelding mentor</string>
+    <string name="lunch_icon_content_description">Icoon lunch</string>
+
 
 </resources>
