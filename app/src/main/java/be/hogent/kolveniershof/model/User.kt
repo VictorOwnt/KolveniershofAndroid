@@ -32,12 +32,10 @@ data class User(
     val isAdmin: Boolean = false,
     @field:Json(name = "birthday")
     val birthday: Date,
-    //@field:Json(name = group)
-    //val group: Group,
     @field:Json(name = "absentDates")
     val absentDates: MutableList<Date> = mutableListOf(),
     @field:Json(name = "picture")
     val imgUrl: String? = null,
-    @field:Json(name = "tempToken")
+    @field:Json(name = "token")
     val token: String? = null
 ) : Parcelable
