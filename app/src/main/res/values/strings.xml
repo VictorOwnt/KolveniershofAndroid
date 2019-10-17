@@ -1,18 +1,41 @@
 <resources>
     <string name="app_name">Kolveniershof</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="action_cancel">Annuleren</string>
+    <string name="action_save">Opslaan</string>
+    <string name="action_new">Nieuw</string>
+
+    <string name="menu_logout">Afmelden</string>
+    <string name="account">Account</string>
+
     <string name="welcome">Welkom</string>
     <string name="welcomeback">Welkom terug</string>
     <string name="logout">Afmelden succesvol</string>
     <string name="prompt_fullName">Naam</string>
+    <string name="prompt_username">Gebruikersnaam</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Wachtwoord</string>
     <string name="action_sign_in">Aanmelden</string>
     <string name="action_register">Registreren</string>
+    <string name="invalid_username">Geen geldige gebruikersnaam</string>
     <string name="invalid_email">Geen geldig emailadres</string>
+    <string name="username_taken">Gebruikersnaam al in gebruik</string>
     <string name="email_taken">Emailadres al in gebruik</string>
     <string name="invalid_password">Wachtwoord is niet sterk genoeg</string>
+    <string name="incorrect_username">Ongeldige gebruikersnaam</string>
     <string name="incorrect_email">Ongeldig emailadres</string>
     <string name="incorrect_password">Ongeldig wachtwoord</string>
     <string name="required">Verplicht</string>
+
+    <string name="activity_icon_content_description">Icoon activiteit</string>
+    <string name="mentor_image_content_description">Afbeelding mentor</string>
+    <string name="lunch_icon_content_description">Icoon lunch</string>
+
+
 </resources>
