@@ -23,63 +23,63 @@
             android:layout_height="match_parent">
 
             <fragment
-                android:id="@+id/fragment8"
+                android:id="@+id/day_three"
                 android:name="be.hogent.kolveniershof.ui.DayFragment"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
-                app:layout_constraintEnd_toStartOf="@+id/fragment9"
+                app:layout_constraintEnd_toStartOf="@+id/day_four"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/fragment7"
+                app:layout_constraintStart_toEndOf="@+id/day_two"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <fragment
-                android:id="@+id/fragment6"
+                android:id="@+id/day_one"
                 android:name="be.hogent.kolveniershof.ui.DayFragment"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
-                app:layout_constraintEnd_toStartOf="@+id/fragment7"
+                app:layout_constraintEnd_toStartOf="@+id/day_two"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <fragment
-                android:id="@+id/fragment7"
+                android:id="@+id/day_two"
                 android:name="be.hogent.kolveniershof.ui.DayFragment"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
-                app:layout_constraintEnd_toStartOf="@+id/fragment8"
+                app:layout_constraintEnd_toStartOf="@+id/day_three"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/fragment6"
+                app:layout_constraintStart_toEndOf="@+id/day_one"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <fragment
-                android:id="@+id/fragment10"
+                android:id="@+id/day_five"
                 android:name="be.hogent.kolveniershof.ui.DayFragment"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/fragment9"
+                app:layout_constraintStart_toEndOf="@+id/day_four"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <fragment
-                android:id="@+id/fragment9"
+                android:id="@+id/day_four"
                 android:name="be.hogent.kolveniershof.ui.DayFragment"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
-                app:layout_constraintEnd_toStartOf="@+id/fragment10"
+                app:layout_constraintEnd_toStartOf="@+id/day_five"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/fragment8"
+                app:layout_constraintStart_toEndOf="@+id/day_three"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
