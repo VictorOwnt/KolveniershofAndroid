@@ -12,7 +12,7 @@ interface KolvApi {
      *
      * @param firstName
      * @param lastName
-     * @param email
+     * @param userName
      * @param password
      * @return User with token
      */
@@ -21,7 +21,7 @@ interface KolvApi {
     fun register(
         @Field("firstName") firstName: String,
         @Field("lastName") lastName: String,
-        @Field("email") email: String,
+        @Field("userName") userName: String,
         @Field("password") password: String,
         @Field("admin") isAdmin: Boolean
     ): Single<User>
@@ -29,14 +29,14 @@ interface KolvApi {
     /**
      * Signs in existing users
      *
-     * @param email
+     * @param userName
      * @param password
      * @return User with token
      */
     @FormUrlEncoded
     @POST("users/login")
     fun login(
-        @Field("email") email: String,
+        @Field("userName") userName: String,
         @Field("password") password: String
     ): Single<User>
 
@@ -51,13 +51,13 @@ interface KolvApi {
     fun isValidEmail(@Field("email") email: String): Single<Boolean>
 
     /**
-     * Gets user by email
+     * Gets user by userName
      *
-     * @param email
+     * @param userName
      * @return user
      */
-    @GET("users/{email}")
-    fun getUserByEmail(@Path("email") email: String): Observable<User>
+    @GET("users/{userName}")
+    fun getUserByEmail(@Path("userName") userName: String): Observable<User>
 
     /**
      * Gets user by id
