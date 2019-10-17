@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import be.hogent.kolveniershof.injection.component.DaggerViewModelInjectorComponent
 import be.hogent.kolveniershof.injection.component.ViewModelInjectorComponent
 import be.hogent.kolveniershof.injection.module.NetworkModule
+import be.hogent.kolveniershof.viewmodels.DayViewModel
 import be.hogent.kolveniershof.viewmodels.UserViewModel
 
 abstract class BaseViewModel : ViewModel() {
@@ -24,6 +25,7 @@ abstract class BaseViewModel : ViewModel() {
     private fun inject() {
         when (this) {
             is UserViewModel -> injectorComponent.inject(this)
+            is DayViewModel -> injectorComponent.inject(this)
         }
     }
 
