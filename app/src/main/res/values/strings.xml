@@ -37,8 +37,4 @@
     <string name="mentor_image_content_description">Afbeelding mentor</string>
     <string name="lunch_icon_content_description">Icoon lunch</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
 </resources>
