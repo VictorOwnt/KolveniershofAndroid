@@ -1,6 +1,7 @@
 package be.hogent.kolveniershof.api
 
 import be.hogent.kolveniershof.model.User
+import be.hogent.kolveniershof.model.Workday
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.*
@@ -63,9 +64,27 @@ interface KolvApi {
      * Gets user by id
      *
      * @param id
-     * @return
+     * @return user
      */
     @GET("users/id/{id}")
     fun getUserById(@Path("id") id: String): Observable<User>
+
+    /**
+     * Gets workdays
+     *
+     * @return workdays
+     */
+    @GET("workdays")
+    fun getWorkdays() : Observable<List<Workday>>
+
+    /**
+     * Gets workday by id
+     *
+     * @param id
+     * @return workday
+     */
+    @GET("workdays/{id}")
+    fun getWorkdayById(@Path("id") id: String) : Observable<Workday>
+
 
 }
