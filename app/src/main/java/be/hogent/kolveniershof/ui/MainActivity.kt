@@ -69,8 +69,8 @@ class MainActivity :
         navView.setNavigationItemSelectedListener(this)
         if (savedInstanceState == null) {
             // Check the first item in the navigation menu
-            /*navView.menu.findItem(R.id.nav_speedCamera).isChecked = true
-            navView.menu.performIdentifierAction(R.id.nav_speedCamera, 0)*/
+            navView.menu.findItem(R.id.nav_calendar).isChecked = true
+            navView.menu.performIdentifierAction(R.id.nav_calendar, 0)
         }
 
         // The detail container view will be present only in the large-screen layouts (res/values-w900dp).
@@ -120,24 +120,18 @@ class MainActivity :
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         // Handle navigation view item clicks.
-        val newFragment: Fragment
-        if (item.itemId != R.id.nav_logout) {
-            // Change ListFragment according to item type
-            /*
-            newFragment = ListFragment.newInstance(item.itemId)
-            this.supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.main_content_container, newFragment)
-                .commit()
-             */
-        } else {
-            // Logout
-            val sharedPref = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
-            sharedPref.edit().clear().apply()
-            // Open AuthActivity
-            val intent = Intent(this, AuthActivity::class.java)
-            startActivity(intent)
-            finish()
+        when (item.itemId) {
+            R.id.nav_calendar -> openDetailFragment(DateSelectorFragment.newInstance("date")) // todo
+            //R.id.nav_busses -> openDetailFragment(BUSSES) // todo
+            R.id.nav_logout -> {
+                // Logout
+                val sharedPref = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
+                sharedPref.edit().clear().apply()
+                // Open AuthActivity
+                val intent = Intent(this, AuthActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
