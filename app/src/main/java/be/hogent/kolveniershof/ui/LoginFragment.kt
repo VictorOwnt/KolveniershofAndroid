@@ -52,8 +52,8 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         signinButton = view.findViewById(R.id.button_sign_in)
-        usernameInput = view.findViewById(R.id.input_username)
-        emailInputLayout = view.findViewById(R.id.inputlayout_username)
+        usernameInput = view.findViewById(R.id.input_email)
+        emailInputLayout = view.findViewById(R.id.inputlayout_email)
         passwordInput = view.findViewById(R.id.input_password)
         passwordInputLayout = view.findViewById(R.id.inputlayout_password)
 
