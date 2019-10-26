@@ -9,35 +9,16 @@ import retrofit2.http.*
 interface KolvApi {
 
     /**
-     * Registers a new user
-     *
-     * @param firstName
-     * @param lastName
-     * @param userName
-     * @param password
-     * @return User with token
-     */
-    @FormUrlEncoded
-    @POST("users/register")
-    fun register(
-        @Field("firstName") firstName: String,
-        @Field("lastName") lastName: String,
-        @Field("userName") userName: String,
-        @Field("password") password: String,
-        @Field("admin") isAdmin: Boolean
-    ): Single<User>
-
-    /**
      * Signs in existing users
      *
-     * @param userName
+     * @param email
      * @param password
      * @return User with token
      */
     @FormUrlEncoded
     @POST("users/login")
     fun login(
-        @Field("userName") userName: String,
+        @Field("email") email: String,
         @Field("password") password: String
     ): Single<User>
 
@@ -52,13 +33,13 @@ interface KolvApi {
     fun isValidEmail(@Field("email") email: String): Single<Boolean>
 
     /**
-     * Gets user by userName
+     * Gets user by email
      *
-     * @param userName
+     * @param email
      * @return user
      */
-    @GET("users/{userName}")
-    fun getUserByEmail(@Path("userName") userName: String): Observable<User>
+    @GET("users/{email}")
+    fun getUserByEmail(@Path("email") email: String): Observable<User>
 
     /**
      * Gets user by id
