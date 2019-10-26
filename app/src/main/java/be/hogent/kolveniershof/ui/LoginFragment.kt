@@ -27,7 +27,7 @@ import javax.security.auth.login.LoginException
 class LoginFragment : Fragment() {
 
     private lateinit var signinButton: Button
-    private lateinit var usernameInput: TextInputEditText
+    private lateinit var emailInput: TextInputEditText
     private lateinit var emailInputLayout: TextInputLayout
     private lateinit var passwordInput: TextInputEditText
     private lateinit var passwordInputLayout: TextInputLayout
@@ -52,7 +52,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         signinButton = view.findViewById(R.id.button_sign_in)
-        usernameInput = view.findViewById(R.id.input_email)
+        emailInput = view.findViewById(R.id.input_email)
         emailInputLayout = view.findViewById(R.id.inputlayout_email)
         passwordInput = view.findViewById(R.id.input_password)
         passwordInputLayout = view.findViewById(R.id.inputlayout_password)
@@ -60,7 +60,7 @@ class LoginFragment : Fragment() {
         // OnClickListener sign in button
         signinButton.setOnClickListener {
             try {
-                val loggedInUser = viewModel.login(usernameInput.text.toString(), passwordInput.text.toString())
+                val loggedInUser = viewModel.login(emailInput.text.toString(), passwordInput.text.toString())
 
                 // Save logged in user
                 val sharedPreferences = activity!!.getSharedPreferences("USER_CREDENTIALS",
@@ -68,7 +68,7 @@ class LoginFragment : Fragment() {
                 )
                 sharedPreferences.edit()
                     .putString("ID", loggedInUser.id)
-                    .putString("USERNAME", loggedInUser.userName)
+                    .putString("EMAIL", loggedInUser.email)
                     .putString("FIRSTNAME", loggedInUser.firstName)
                     .putString("LASTNAME", loggedInUser.lastName)
                     .putBoolean("ADMIN", loggedInUser.isAdmin)
@@ -93,7 +93,7 @@ class LoginFragment : Fragment() {
         }
 
         // TextWatchers
-        usernameInput.addTextChangedListener(watcher)
+        emailInput.addTextChangedListener(watcher)
         passwordInput.addTextChangedListener(watcher)
     }
 
@@ -102,12 +102,12 @@ class LoginFragment : Fragment() {
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(s: Editable) {
             emailInputLayout.error = getString(R.string.required)
-            emailInputLayout.isErrorEnabled = usernameInput.text.isNullOrBlank()
+            emailInputLayout.isErrorEnabled = emailInput.text.isNullOrBlank()
 
             passwordInputLayout.error = getString(R.string.required)
             passwordInputLayout.isErrorEnabled = passwordInput.text.isNullOrBlank()
 
-            val nonBlank = !(usernameInput.text.isNullOrBlank() || passwordInput.text.isNullOrBlank())
+            val nonBlank = !(emailInput.text.isNullOrBlank() || passwordInput.text.isNullOrBlank())
             signinButton.isEnabled = nonBlank
         }
     }
