@@ -50,16 +50,17 @@ class DateSelectorFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
         // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.main, menu)
+        //inflater.inflate(R.menu.main, menu)
 
         // Hide userSelector button if no admin permissions
         if (!sharedPrefs.getBoolean("ADMIN", false)) {
             val item = menu.findItem(R.id.action_userSelector)
-            item.isVisible = true
+            item.isVisible = false
             activity!!.invalidateOptionsMenu()
         }
+
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
