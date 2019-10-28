@@ -3,11 +3,23 @@ package be.hogent.kolveniershof.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import be.hogent.kolveniershof.R
+import org.joda.time.DateTime
 
+
+
+// Number of pages in ViewPager (8 weeks total)
+private const val NUM_PAGES = 48
 private const val ARG_WORKDAY_DATE = "workdayDate"
 
 class DateSelectorFragment : Fragment() {
@@ -42,6 +54,28 @@ class DateSelectorFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_date_selector, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager = view.findViewById(R.id.pager)
+
+        // The pager adapter, which provides the pages to the view pager widget.
+        val pagerAdapter = PagerAdapter(childFragmentManager)
+        mPager.adapter = pagerAdapter
+    }
+
+    private inner class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        override fun getCount(): Int = NUM_PAGES
+
+        override fun getItem(position: Int): Fragment {
+            // Gets date to show first
+            val date = DateTime.now().minusDays(29 - position)
+            // Loads DayFragment
+            return DayFragment.newInstance(date)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
