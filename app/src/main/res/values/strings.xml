@@ -7,6 +7,11 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
+    <string name="navigation_selectDay">Datum kiezen</string>
+    <string name="navigation_selectUser">Cliënt kiezen</string>
+    <string name="menu_calendar">Agenda</string>
+    <string name="menu_busses">Bussen</string>
+
     <string name="action_cancel">Annuleren</string>
     <string name="action_save">Opslaan</string>
     <string name="action_new">Nieuw</string>

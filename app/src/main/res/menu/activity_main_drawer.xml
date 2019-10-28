@@ -3,21 +3,19 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <!--
+    <group
+        android:id="@+id/nav_schemaSelector"
+        android:checkableBehavior="single">
+
         <item
-                android:id="@+id/nav_speedCamera"
-                android:icon="@drawable/ic_menu_speedcamera"
-                android:title="@string/menu_speedCamera"/>
+                android:id="@+id/nav_calendar"
+                android:icon="@drawable/ic_menu_calendar"
+                android:title="@string/menu_calendar"/>
         <item
-                android:id="@+id/nav_avgSpeedCheck"
-                android:icon="@drawable/ic_menu_avgspeedcheck"
-                android:title="@string/menu_avgSpeedCheck"/>
-        <item
-                android:id="@+id/nav_policeCheck"
-                android:icon="@drawable/ic_menu_policecheck"
-                android:title="@string/menu_policeCheck"/>
-        -->
+                android:id="@+id/nav_busses"
+                android:icon="@drawable/ic_menu_bus"
+                android:title="@string/menu_busses"/>
+
     </group>
 
     <item android:title="@string/account">
