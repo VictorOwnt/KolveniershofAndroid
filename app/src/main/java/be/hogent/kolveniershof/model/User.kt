@@ -22,8 +22,6 @@ import java.util.*
 data class User(
     @field:Json(name = "_id")
     val id: String,
-    @field:Json(name = "userName")
-    val userName: String,
     @field:Json(name = "firstName")
     val firstName: String,
     @field:Json(name = "lastName")
