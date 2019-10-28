@@ -38,13 +38,17 @@ class DateSelectorFragment : Fragment() {
 
     private lateinit var sharedPrefs: SharedPreferences
     private lateinit var mPager: ViewPager
+    private lateinit var dateSelectorMinusTwo: DateButton
+    private lateinit var dateSelectorMinusOne: DateButton
+    private lateinit var dateSelectorNow: DateButton
+    private lateinit var dateSelectorPlusOne: DateButton
+    private lateinit var dateSelectorPlusTwo: DateButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             workdayDate = it.getString(ARG_WORKDAY_DATE)
         }
-
         setHasOptionsMenu(true)
     }
 
@@ -58,6 +62,12 @@ class DateSelectorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        dateSelectorMinusTwo = view.findViewById(R.id.dateSelectorMinusTwo)
+        dateSelectorMinusOne = view.findViewById(R.id.dateSelectorMinusOne)
+        dateSelectorNow = view.findViewById(R.id.dateSelectorNow)
+        dateSelectorPlusOne = view.findViewById(R.id.dateSelectorPlusOne)
+        dateSelectorPlusTwo = view.findViewById(R.id.dateSelectorPlusTwo)
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = view.findViewById(R.id.pager)
@@ -73,6 +83,14 @@ class DateSelectorFragment : Fragment() {
         override fun getItem(position: Int): Fragment {
             // Gets date to show first
             val date = DateTime.now().minusDays(29 - position)
+
+            // Shows correct dates in buttons
+            dateSelectorMinusTwo.setDate(date.minusDays(2))
+            dateSelectorMinusOne.setDate(date.minusDays(1))
+            dateSelectorNow.setDate(date)
+            dateSelectorPlusOne.setDate(date.plusDays(1))
+            dateSelectorPlusTwo.setDate(date.plusDays(2))
+
             // Loads DayFragment
             return DayFragment.newInstance(date)
         }

@@ -10,14 +10,19 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import be.hogent.kolveniershof.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.joda.time.DateTime
+import java.util.*
 
 class DateButton(context: Context, attrs: AttributeSet): LinearLayout(context, attrs) {
+
+    private val dateTextView: TextView
+    private val monthTextView: TextView
 
     init {
         inflate(context, R.layout.view_date_button, this)
 
-        val dateTextView: TextView = findViewById(R.id.dateButtonDate)
-        val monthTextView: TextView = findViewById(R.id.dateButtonMonth)
+        dateTextView = findViewById(R.id.dateButtonDate)
+        monthTextView = findViewById(R.id.dateButtonMonth)
         val layout: ConstraintLayout = findViewById(R.id.dateButtonLayout)
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.DateButton)
@@ -33,5 +38,15 @@ class DateButton(context: Context, attrs: AttributeSet): LinearLayout(context, a
         }
 
         attributes.recycle()
+    }
+
+    /**
+     * Set string values from given date
+     *
+     * @param date
+     */
+    fun setDate(date: DateTime) {
+        dateTextView.text = date.toString("dd")
+        monthTextView.text = date.toString("MMM")
     }
 }
