@@ -89,6 +89,22 @@ class DateSelectorFragment : Fragment() {
             }
         })
         mPager.currentItem = 29
+
+        // OnClickListeners buttons
+        dateSelectorMinusTwo.setOnClickListener {
+            mPager.arrowScroll(View.FOCUS_LEFT)
+            mPager.arrowScroll(View.FOCUS_LEFT)
+        }
+        dateSelectorMinusOne.setOnClickListener {
+            mPager.arrowScroll(View.FOCUS_LEFT)
+        }
+        dateSelectorPlusOne.setOnClickListener {
+            mPager.arrowScroll(View.FOCUS_RIGHT)
+        }
+        dateSelectorPlusTwo.setOnClickListener {
+            mPager.arrowScroll(View.FOCUS_RIGHT)
+            mPager.arrowScroll(View.FOCUS_RIGHT)
+        }
     }
 
     private inner class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
