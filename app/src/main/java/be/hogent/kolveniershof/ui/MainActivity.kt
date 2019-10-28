@@ -61,8 +61,10 @@ class MainActivity :
         val headerView = navView.getHeaderView(0)
         val navHeaderName = headerView.findViewById<TextView>(R.id.nav_header_name)
         val navHeaderEmail = headerView.findViewById<TextView>(R.id.nav_header_email)
-        navHeaderName.text = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
-            .getString("NAME", getString(R.string.app_name))
+        navHeaderName.text = (getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
+            .getString("FIRSTNAME", getString(R.string.app_name)) + " " +
+                getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
+                    .getString("LASTNAME", ""))
         navHeaderEmail.text = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
             .getString("EMAIL", "")
 
