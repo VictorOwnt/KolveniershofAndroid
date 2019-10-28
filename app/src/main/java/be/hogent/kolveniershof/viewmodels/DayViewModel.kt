@@ -9,6 +9,7 @@ import com.orhanobut.logger.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 import javax.inject.Inject
 
@@ -62,6 +63,20 @@ class DayViewModel : BaseViewModel()
     fun getWorkdayById(authToken: String, id: String) {
         disposables.add(
             kolvApi.getWorkdayById(authToken, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { onRetrieveStart() }
+                .doOnTerminate { onRetrieveFinish() }
+                .subscribe(
+                    { result -> onRetrieveSingleSuccess(result) },
+                    { error -> onRetrieveError(error) }
+                )
+        )
+    }
+
+    fun getWorkdayByDateByUser(authToken: String, date: String, userId: String) {
+        disposables.add(
+            kolvApi.getWorkdayByDateByUser(authToken, date, userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrieveStart() }
