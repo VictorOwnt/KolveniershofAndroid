@@ -26,8 +26,8 @@ class DayViewModel : BaseViewModel()
     private var disposables = CompositeDisposable()
 
     init {
-        disposables.add(
-            kolvApi.getWorkdays()
+        /*disposables.add(
+            kolvApi.getWorkdays(authToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrieveStart() }
@@ -36,10 +36,10 @@ class DayViewModel : BaseViewModel()
                     { results -> onRetrieveListSuccess(results) },
                     { error -> onRetrieveError(error) }
                 )
-        )
+        )*/
     }
 
-    fun refresh() {
+    /*fun refresh() {
         disposables.clear()
         disposables.add(
             kolvApi.getWorkdays()
@@ -52,16 +52,16 @@ class DayViewModel : BaseViewModel()
                     { error -> onRetrieveError(error) }
                 )
         )
-    }
+    }*/
 
     private fun onRetrieveListSuccess(results: List<Workday>) {
         workdays.value = results
         Logger.i(results.toString())
     }
 
-    fun getWorkdayById(id: String) {
+    fun getWorkdayById(authToken: String, id: String) {
         disposables.add(
-            kolvApi.getWorkdayById(id)
+            kolvApi.getWorkdayById(authToken, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrieveStart() }

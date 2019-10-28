@@ -53,19 +53,21 @@ interface KolvApi {
     /**
      * Gets workdays
      *
+     * @param authToken
      * @return workdays
      */
     @GET("workdays")
-    fun getWorkdays() : Observable<List<Workday>>
+    fun getWorkdays(@Header("Authorization") authToken: String) : Observable<List<Workday>>
 
     /**
      * Gets workday by id
      *
+     * @param authToken
      * @param id
      * @return workday
      */
-    @GET("workdays/{id}")
-    fun getWorkdayById(@Path("id") id: String) : Observable<Workday>
+    @GET("workdays/id/{id}")
+    fun getWorkdayById(@Header("Authorization") authToken: String, @Path("id") id: String) : Observable<Workday>
 
 
 }
