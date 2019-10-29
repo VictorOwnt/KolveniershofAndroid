@@ -9,6 +9,7 @@ import com.orhanobut.logger.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 import javax.inject.Inject
 
@@ -26,8 +27,8 @@ class DayViewModel : BaseViewModel()
     private var disposables = CompositeDisposable()
 
     init {
-        disposables.add(
-            kolvApi.getWorkdays()
+        /*disposables.add(
+            kolvApi.getWorkdays(authToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrieveStart() }
@@ -36,10 +37,10 @@ class DayViewModel : BaseViewModel()
                     { results -> onRetrieveListSuccess(results) },
                     { error -> onRetrieveError(error) }
                 )
-        )
+        )*/
     }
 
-    fun refresh() {
+    /*fun refresh() {
         disposables.clear()
         disposables.add(
             kolvApi.getWorkdays()
@@ -52,16 +53,30 @@ class DayViewModel : BaseViewModel()
                     { error -> onRetrieveError(error) }
                 )
         )
-    }
+    }*/
 
     private fun onRetrieveListSuccess(results: List<Workday>) {
         workdays.value = results
         Logger.i(results.toString())
     }
 
-    fun getWorkdayById(id: String) {
+    fun getWorkdayById(authToken: String, id: String) {
         disposables.add(
-            kolvApi.getWorkdayById(id)
+            kolvApi.getWorkdayById(authToken, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { onRetrieveStart() }
+                .doOnTerminate { onRetrieveFinish() }
+                .subscribe(
+                    { result -> onRetrieveSingleSuccess(result) },
+                    { error -> onRetrieveError(error) }
+                )
+        )
+    }
+
+    fun getWorkdayByDateByUser(authToken: String, date: String, userId: String) {
+        disposables.add(
+            kolvApi.getWorkdayByDateByUser(authToken, date, userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrieveStart() }

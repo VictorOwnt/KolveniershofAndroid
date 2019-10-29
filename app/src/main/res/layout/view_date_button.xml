@@ -10,33 +10,16 @@
     android:layout_marginRight="4dp"
     android:layout_marginBottom="8dp"
     android:background="@drawable/ic_circle"
-    android:clickable="true"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:focusable="true"
     android:padding="5dp"
     android:stateListAnimator="@animator/lift_on_touch">
-
-    <!--
-    <ImageView
-        android:id="@+id/dateButtonCircle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_circle"
-        tools:ignore="ContentDescription"
-        android:stateListAnimator="@animator/lift_on_touch"
-        android:clickable="true" />
-        -->
 
     <TextView
         android:id="@+id/dateButtonDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="sans-serif-medium"
         android:outlineProvider="none"
         android:text="03"
@@ -46,19 +29,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/dateButtonMonth"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="6dp"
         android:outlineProvider="none"
         android:text="okt"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
