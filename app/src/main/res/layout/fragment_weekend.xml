@@ -19,14 +19,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#33007AEF">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:background="@color/colorPrimary"
+                android:background="#33007AEF"
                 app:layout_constraintBottom_toTopOf="@+id/editText3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,29 +54,37 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editText3"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:background="@color/colorWhite"
                 android:ems="10"
                 android:hint="Voeg een opmerking toe"
                 android:inputType="textPersonName"
-                android:padding="16dp"
                 android:singleLine="false"
+                app:boxStrokeColor="@color/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@+id/button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textShortMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/button"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
+                android:layout_marginEnd="32dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
                 android:text="Verzenden"
@@ -88,10 +95,12 @@
                 app:iconSize="20dp"
                 app:iconTint="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText3"
                 app:strokeColor="@android:color/transparent"
-                app:strokeWidth="0dp"
-                tools:layout_editor_absoluteX="261dp" />
+                app:strokeWidth="0dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
