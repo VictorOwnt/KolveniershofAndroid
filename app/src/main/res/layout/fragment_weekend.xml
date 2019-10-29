@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.WeekendFragment" >
@@ -22,7 +21,7 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
+                android:id="@+id/dayNameHeader"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:background="#33007AEF"
@@ -32,22 +31,23 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/imageDayIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/moon_symbol"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/textDayName"
+                    android:contentDescription="@string/day_icon_content_description" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/textDayName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Zaterdag 05/10"
                     android:textSize="@dimen/font_size_large"
-                    app:layout_constraintBottom_toTopOf="@+id/imageView4"
+                    app:layout_constraintBottom_toTopOf="@+id/imageDayIcon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +70,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+                app:layout_constraintTop_toBottomOf="@+id/dayNameHeader">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_location"
