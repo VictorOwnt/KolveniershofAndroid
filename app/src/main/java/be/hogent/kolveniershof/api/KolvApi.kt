@@ -77,7 +77,7 @@ interface KolvApi {
      * @param userId
      * @return
      */
-    @GET("workdays/{date}/{user}")
+    @GET("workdays/date/{date}/{user}")
     fun getWorkdayByDateByUser(@Header("Authorization") authToken: String, @Path("date") dateString: String, @Path("user") userId: String) : Observable<Workday>
 
 }
