@@ -19,4 +19,8 @@ data class Activity(
     val name: String,
     @field:Json(name = "icon")
     val iconUrl: String
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String {
+        return name
+    }
+}

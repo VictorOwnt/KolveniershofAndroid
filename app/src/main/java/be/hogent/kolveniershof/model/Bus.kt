@@ -22,4 +22,8 @@ data class Bus(
     val color: String,
     @field:Json(name = "icon")
     val iconUrl: String
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String {
+        return name
+    }
+}
