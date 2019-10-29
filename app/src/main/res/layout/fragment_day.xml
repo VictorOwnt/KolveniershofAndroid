@@ -50,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/day_icon_content_description"
                     android:src="@drawable/moon_symbol"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
