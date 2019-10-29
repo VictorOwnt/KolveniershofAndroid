@@ -9,10 +9,9 @@
             type="be.hogent.kolveniershof.viewmodels.DayViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.DayFragment">
+        android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -24,61 +23,46 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingStart="16dp"
-                android:paddingTop="0dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="16dp">
+                android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:id="@+id/dayNameHeader"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="-16dp"
-                    android:layout_marginEnd="-16dp"
                     android:background="@color/colorPrimaryHeaderFooter"
-                    app:layout_constraintBottom_toTopOf="@+id/image"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/imageDayIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:contentDescription="@string/day_icon_content_description"
-                        android:src="@drawable/moon_symbol"
-                        android:tint="@color/colorPrimaryDark"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textDayName"
-                        tools:srcCompat="@drawable/moon_symbol" />
 
                     <TextView
                         android:id="@+id/textDayName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
                         android:textColor="@color/colorText"
                         android:textSize="@dimen/font_size_huge"
-                        app:layout_constraintBottom_toTopOf="@+id/imageDayIcon"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:textStyle="bold"
                         tools:text="Vrijdag" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/imageDayIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/day_icon_content_description"
+                        android:src="@drawable/moon_symbol"
+                        android:tint="@color/colorPrimaryDark" />
+
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/image"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
                     android:contentDescription="@string/icon_content_description"
                     android:tint="@color/colorPrimaryDark"
                     app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -91,7 +75,9 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="32dp"
                     android:contentDescription="@string/activity_icon_content_description"
                     android:textAlignment="center"
@@ -106,5 +92,5 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

@@ -8,318 +8,323 @@
             name="viewmodel"
             type="be.hogent.kolveniershof.viewmodels.DayViewModel" />
     </data>
-    
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.DayFragment">
 
-    <androidx.cardview.widget.CardView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="6dp"
-        android:clipToPadding="false">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="16dp"
-            android:paddingBottom="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="0dp"
-            android:clipToPadding="false">
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="6dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/dayNameHeader"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-16dp"
-                android:layout_marginEnd="-16dp"
-                android:background="@color/colorPrimaryHeaderFooter"
-                app:layout_constraintBottom_toTopOf="@+id/imageMorningBus"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent"
+                android:clipToPadding="false">
+
+                <LinearLayout
+                    android:id="@+id/dayNameHeader"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryHeaderFooter"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:padding="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageMorningBus"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textDayName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/font_size_huge"
+                        android:textStyle="bold"
+                        tools:text="Maandag" />
+
+                    <ImageView
+                        android:id="@+id/imageDayIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/day_icon_content_description"
+                        android:src="@drawable/moon_symbol"
+                        android:tint="@color/colorPrimaryDark" />
+
+                </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageDayIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/imageMorningBus"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:contentDescription="@string/day_icon_content_description"
-                    android:src="@drawable/moon_symbol"
+                    android:contentDescription="@string/activity_icon_content_description"
                     android:tint="@color/colorPrimaryDark"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/dayNameHeader"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dayNameHeader"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/imageMorningCoffee"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/activity_icon_content_description"
+                    android:tint="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/imageMorningBus"
+                    app:layout_constraintTop_toBottomOf="@+id/dayNameHeader"
+                    tools:src="@tools:sample/avatars" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorDivider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textDayName"
-                    tools:srcCompat="@drawable/moon_symbol" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageMorningBus" />
+
+                <ImageView
+                    android:id="@+id/imageAmActivity1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/activity_icon_content_description"
+                    android:tint="@color/colorPrimaryDark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider1"
+                    tools:src="@tools:sample/avatars[3]" />
 
                 <TextView
-                    android:id="@+id/textDayName"
+                    android:id="@+id/textAmActivity1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
                     android:textColor="@color/colorText"
-                    android:textSize="@dimen/font_size_huge"
-                    app:layout_constraintBottom_toTopOf="@+id/imageDayIcon"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageAmActivity1"
+                    app:layout_constraintStart_toEndOf="@+id/imageAmActivity1"
+                    app:layout_constraintTop_toTopOf="@+id/imageAmActivity1"
+                    tools:text="textAmActivity1" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageAmMentor1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/mentor_image_content_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/textAmActivity1"
+                    app:layout_constraintTop_toBottomOf="@+id/divider1"
+                    tools:src="@color/colorPrimaryDark" />
+
+                <ImageView
+                    android:id="@+id/imageAmActivity2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/activity_icon_content_description"
+                    android:tint="@color/colorPrimaryDark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageAmActivity1"
+                    tools:src="@tools:sample/avatars[3]" />
+
+                <TextView
+                    android:id="@+id/textAmActivity2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageAmActivity2"
+                    app:layout_constraintStart_toEndOf="@+id/imageAmActivity2"
+                    app:layout_constraintTop_toTopOf="@+id/imageAmActivity2"
+                    tools:text="textAmActivity2" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageAmMentor2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/mentor_image_content_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/textAmActivity2"
+                    app:layout_constraintTop_toBottomOf="@+id/imageAmMentor1"
+                    tools:src="@color/colorPrimaryDark" />
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorDivider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Maandag" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageAmActivity2" />
+
+                <ImageView
+                    android:id="@+id/imageLunch"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/lunch_icon_content_description"
+                    android:tint="@color/colorPrimaryDark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider2"
+                    tools:src="@tools:sample/avatars[3]" />
+
+                <TextView
+                    android:id="@+id/textLunch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageLunch"
+                    app:layout_constraintStart_toEndOf="@+id/imageLunch"
+                    app:layout_constraintTop_toTopOf="@+id/imageLunch"
+                    tools:text="textLunch" />
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageLunch" />
+
+                <ImageView
+                    android:id="@+id/imagePmActivity1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/activity_icon_content_description"
+                    android:tint="@color/colorPrimaryDark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider3"
+                    tools:src="@tools:sample/avatars[3]" />
+
+                <TextView
+                    android:id="@+id/textPmActivity1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="66dp"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintBottom_toBottomOf="@+id/imagePmActivity1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/imagePmActivity1"
+                    app:layout_constraintTop_toTopOf="@+id/imagePmActivity1"
+                    tools:text="textPmActivity1" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imagePmMentor1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/mentor_image_content_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/textPmActivity1"
+                    app:layout_constraintTop_toBottomOf="@+id/divider3"
+                    tools:src="@color/colorPrimaryDark" />
+
+                <ImageView
+                    android:id="@+id/imagePmActivity2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/activity_icon_content_description"
+                    android:tint="@color/colorPrimaryDark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imagePmActivity1"
+                    tools:src="@tools:sample/avatars[3]" />
+
+                <TextView
+                    android:id="@+id/textPmActivity2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="66dp"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintBottom_toBottomOf="@+id/imagePmActivity2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/imagePmActivity2"
+                    app:layout_constraintTop_toTopOf="@+id/imagePmActivity2"
+                    tools:text="textPmActivity2" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imagePmMentor2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/mentor_image_content_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/textPmActivity2"
+                    app:layout_constraintTop_toBottomOf="@+id/imagePmMentor1"
+                    tools:src="@color/colorPrimaryDark" />
+
+                <View
+                    android:id="@+id/divider4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imagePmActivity2" />
+
+                <ImageView
+                    android:id="@+id/imageEveningBus"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/activity_icon_content_description"
+                    android:tint="@color/colorPrimaryDark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider4"
+                    tools:src="@tools:sample/avatars" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/imageMorningBus"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/activity_icon_content_description"
-                android:tint="@color/colorPrimaryDark"
-                app:layout_constraintBottom_toTopOf="@+id/dayNameHeader"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dayNameHeader"
-                tools:src="@tools:sample/avatars" />
-
-            <ImageView
-                android:id="@+id/imageMorningCoffee"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:contentDescription="@string/activity_icon_content_description"
-                android:tint="@color/colorPrimaryDark"
-                app:layout_constraintStart_toEndOf="@+id/imageMorningBus"
-                app:layout_constraintTop_toBottomOf="@+id/dayNameHeader"
-                tools:src="@tools:sample/avatars" />
-
-            <View
-                android:id="@+id/divider1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageMorningBus" />
-
-            <ImageView
-                android:id="@+id/imageAmActivity1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/activity_icon_content_description"
-                android:tint="@color/colorPrimaryDark"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider1"
-                tools:src="@tools:sample/avatars[3]" />
-
-            <TextView
-                android:id="@+id/textAmActivity1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="66dp"
-                android:textColor="@color/colorText"
-                app:layout_constraintBottom_toBottomOf="@+id/imageAmActivity1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageAmActivity1"
-                app:layout_constraintTop_toTopOf="@+id/imageAmActivity1"
-                tools:text="textAmActivity1" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageAmMentor1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/mentor_image_content_description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textAmActivity1"
-                app:layout_constraintTop_toBottomOf="@+id/divider1"
-                tools:src="@color/colorPrimaryDark" />
-
-            <ImageView
-                android:id="@+id/imageAmActivity2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/activity_icon_content_description"
-                android:tint="@color/colorPrimaryDark"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageAmActivity1"
-                tools:src="@tools:sample/avatars[3]" />
-
-            <TextView
-                android:id="@+id/textAmActivity2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="66dp"
-                android:textColor="@color/colorText"
-                app:layout_constraintBottom_toBottomOf="@+id/imageAmActivity2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageAmActivity2"
-                app:layout_constraintTop_toTopOf="@+id/imageAmActivity2"
-                tools:text="textAmActivity2" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageAmMentor2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/mentor_image_content_description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textAmActivity2"
-                app:layout_constraintTop_toBottomOf="@+id/imageAmMentor1"
-                tools:src="@color/colorPrimaryDark" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageAmActivity2" />
-
-            <ImageView
-                android:id="@+id/imageLunch"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/lunch_icon_content_description"
-                android:tint="@color/colorPrimaryDark"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider2"
-                tools:src="@tools:sample/avatars[3]" />
-
-            <TextView
-                android:id="@+id/textLunch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textColor="@color/colorText"
-                app:layout_constraintBottom_toBottomOf="@+id/imageLunch"
-                app:layout_constraintStart_toEndOf="@+id/imageLunch"
-                app:layout_constraintTop_toTopOf="@+id/imageLunch"
-                tools:text="textLunch" />
-
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageLunch" />
-
-            <ImageView
-                android:id="@+id/imagePmActivity1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/activity_icon_content_description"
-                android:tint="@color/colorPrimaryDark"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider3"
-                tools:src="@tools:sample/avatars[3]" />
-
-            <TextView
-                android:id="@+id/textPmActivity1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="66dp"
-                android:textColor="@color/colorText"
-                app:layout_constraintBottom_toBottomOf="@+id/imagePmActivity1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imagePmActivity1"
-                app:layout_constraintTop_toTopOf="@+id/imagePmActivity1"
-                tools:text="textPmActivity1" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imagePmMentor1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/mentor_image_content_description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textPmActivity1"
-                app:layout_constraintTop_toBottomOf="@+id/divider3"
-                tools:src="@color/colorPrimaryDark" />
-
-            <ImageView
-                android:id="@+id/imagePmActivity2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/activity_icon_content_description"
-                android:tint="@color/colorPrimaryDark"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagePmActivity1"
-                tools:src="@tools:sample/avatars[3]" />
-
-            <TextView
-                android:id="@+id/textPmActivity2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="66dp"
-                android:textColor="@color/colorText"
-                app:layout_constraintBottom_toBottomOf="@+id/imagePmActivity2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imagePmActivity2"
-                app:layout_constraintTop_toTopOf="@+id/imagePmActivity2"
-                tools:text="textPmActivity2" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imagePmMentor2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/mentor_image_content_description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textPmActivity2"
-                app:layout_constraintTop_toBottomOf="@+id/imagePmMentor1"
-                tools:src="@color/colorPrimaryDark" />
-
-            <View
-                android:id="@+id/divider4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagePmActivity2" />
-
-            <ImageView
-                android:id="@+id/imageEveningBus"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/activity_icon_content_description"
-                android:tint="@color/colorPrimaryDark"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider4"
-                tools:src="@tools:sample/avatars" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-</ScrollView>
+        </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
 </layout>
