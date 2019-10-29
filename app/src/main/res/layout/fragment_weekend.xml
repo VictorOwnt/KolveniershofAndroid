@@ -34,23 +34,24 @@
                     android:id="@+id/imageDayIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/day_icon_content_description"
                     android:src="@drawable/moon_symbol"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textDayName"
-                    android:contentDescription="@string/day_icon_content_description" />
+                    tools:srcCompat="@drawable/moon_symbol" />
 
                 <TextView
                     android:id="@+id/textDayName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Zaterdag 05/10"
                     android:textSize="@dimen/font_size_large"
                     app:layout_constraintBottom_toTopOf="@+id/imageDayIcon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Zaterdag" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

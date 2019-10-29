@@ -50,24 +50,25 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
+                        android:contentDescription="@string/day_icon_content_description"
                         android:src="@drawable/moon_symbol"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textDayName"
-                        android:contentDescription="@string/day_icon_content_description" />
+                        tools:srcCompat="@drawable/moon_symbol" />
 
                     <TextView
                         android:id="@+id/textDayName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Zaterdag 05/10"
                         android:textSize="@dimen/font_size_large"
                         app:layout_constraintBottom_toTopOf="@+id/imageDayIcon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Vrijdag" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,7 +92,6 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="32dp"
                     android:contentDescription="@string/activity_icon_content_description"
-                    android:text="Vakantie"
                     android:textAlignment="center"
                     android:textSize="@dimen/font_size_huge"
                     android:tint="@color/colorPrimaryDark"
@@ -99,8 +99,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:src="@tools:sample/avatars" />
                     app:layout_constraintTop_toBottomOf="@+id/image"
+                    tools:text="Vakantie" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

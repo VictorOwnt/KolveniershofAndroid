@@ -54,19 +54,20 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/textDayName"
+                    tools:srcCompat="@drawable/moon_symbol" />
 
                 <TextView
                     android:id="@+id/textDayName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Zaterdag 05/10"
                     android:textSize="@dimen/font_size_large"
                     app:layout_constraintBottom_toTopOf="@+id/imageView4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Maandag" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -121,13 +122,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="66dp"
-                android:text="textAmActivity1"
                 app:layout_constraintBottom_toBottomOf="@+id/imageAmActivity1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageAmActivity1"
                 app:layout_constraintTop_toTopOf="@+id/imageAmActivity1"
-                tools:ignore="HardcodedText" />
+                tools:text="textAmActivity1" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageAmMentor1"
@@ -135,11 +135,11 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/mentor_image_content_description"
-                android:src="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textAmActivity1"
-                app:layout_constraintTop_toBottomOf="@+id/divider1" />
+                app:layout_constraintTop_toBottomOf="@+id/divider1"
+                tools:src="@color/colorPrimaryDark" />
 
             <ImageView
                 android:id="@+id/imageAmActivity2"
@@ -158,13 +158,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="66dp"
-                android:text="textAmActivity2"
                 app:layout_constraintBottom_toBottomOf="@+id/imageAmActivity2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageAmActivity2"
                 app:layout_constraintTop_toTopOf="@+id/imageAmActivity2"
-                tools:ignore="HardcodedText" />
+                tools:text="textAmActivity2" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageAmMentor2"
@@ -172,11 +171,11 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/mentor_image_content_description"
-                android:src="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textAmActivity2"
-                app:layout_constraintTop_toBottomOf="@+id/imageAmMentor1" />
+                app:layout_constraintTop_toBottomOf="@+id/imageAmMentor1"
+                tools:src="@color/colorPrimaryDark" />
 
             <View
                 android:id="@+id/divider2"
@@ -204,11 +203,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="textLunch"
                 app:layout_constraintBottom_toBottomOf="@+id/imageLunch"
                 app:layout_constraintStart_toEndOf="@+id/imageLunch"
                 app:layout_constraintTop_toTopOf="@+id/imageLunch"
-                tools:ignore="HardcodedText" />
+                tools:text="textLunch" />
 
             <View
                 android:id="@+id/divider3"
@@ -237,13 +235,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="66dp"
-                android:text="textPmActivity1"
                 app:layout_constraintBottom_toBottomOf="@+id/imagePmActivity1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imagePmActivity1"
                 app:layout_constraintTop_toTopOf="@+id/imagePmActivity1"
-                tools:ignore="HardcodedText" />
+                tools:text="textPmActivity1" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imagePmMentor1"
@@ -251,11 +248,11 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/mentor_image_content_description"
-                android:src="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textPmActivity1"
-                app:layout_constraintTop_toBottomOf="@+id/divider3" />
+                app:layout_constraintTop_toBottomOf="@+id/divider3"
+                tools:src="@color/colorPrimaryDark" />
 
             <ImageView
                 android:id="@+id/imagePmActivity2"
@@ -274,13 +271,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="66dp"
-                android:text="textPmActivity2"
                 app:layout_constraintBottom_toBottomOf="@+id/imagePmActivity2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imagePmActivity2"
                 app:layout_constraintTop_toTopOf="@+id/imagePmActivity2"
-                tools:ignore="HardcodedText" />
+                tools:text="textPmActivity2" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imagePmMentor2"
@@ -288,11 +284,11 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/mentor_image_content_description"
-                android:src="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textPmActivity2"
-                app:layout_constraintTop_toBottomOf="@+id/imagePmMentor1" />
+                app:layout_constraintTop_toBottomOf="@+id/imagePmMentor1"
+                tools:src="@color/colorPrimaryDark" />
 
             <View
                 android:id="@+id/divider4"
