@@ -19,10 +19,12 @@ import be.hogent.kolveniershof.viewmodels.DayViewModel
 import org.joda.time.DateTime
 
 private const val ARG_WORKDAY_DATE = "workdayDate"
+private const val ARG_WORKDAY_WEEKEND = "isWeekend"
 
 class DayFragment : Fragment() {
 
     private var workdayDate : String? = null
+    private var isWeekend: Boolean? = null
 
     companion object {
         @JvmStatic
@@ -30,10 +32,14 @@ class DayFragment : Fragment() {
             DayFragment().apply {
                 arguments = Bundle().apply {
                     var date: String? = null
+                    var weekend = false
                     if (workdayDate != null) {
                         date = workdayDate.toString("dd_MM_yyyy")
+                        if (workdayDate.toString("e") == "6" || workdayDate.toString("e") == "7")
+                            weekend = true
                     }
                     putString(ARG_WORKDAY_DATE, date)
+                    putBoolean(ARG_WORKDAY_WEEKEND, weekend)
                 }
             }
     }
@@ -45,6 +51,7 @@ class DayFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             workdayDate = it.getString(ARG_WORKDAY_DATE)
+            isWeekend = it.getBoolean(ARG_WORKDAY_WEEKEND)
         }
     }
 
@@ -55,7 +62,9 @@ class DayFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(DayViewModel::class.java)
 
         // Inflate the layout for this fragment
-        val binding: FragmentDayBinding =
+        val binding: FragmentDayBinding = if (isWeekend!!)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_weekend, container, false)
+        else
             DataBindingUtil.inflate(inflater, R.layout.fragment_day, container, false)
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
