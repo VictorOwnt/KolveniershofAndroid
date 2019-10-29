@@ -9,14 +9,19 @@ import androidx.lifecycle.Observer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import be.hogent.kolveniershof.R
 import be.hogent.kolveniershof.databinding.FragmentDayBinding
+import be.hogent.kolveniershof.model.ActivityUnit
+import be.hogent.kolveniershof.model.BusUnit
+import be.hogent.kolveniershof.model.LunchUnit
 import be.hogent.kolveniershof.viewmodels.DayViewModel
 import org.joda.time.DateTime
+import org.w3c.dom.Text
 
 private const val ARG_WORKDAY_DATE = "workdayDate"
 private const val ARG_WORKDAY_WEEKEND = "isWeekend"
@@ -47,6 +52,28 @@ class DayFragment : Fragment() {
     private lateinit var viewModel: DayViewModel
     private lateinit var sharedPrefs: SharedPreferences
 
+    private lateinit var imageMorningBus: ImageView
+    private lateinit var imageMorningCoffee: ImageView
+    private lateinit var divider1: View
+    private lateinit var imageAmActivity1: ImageView
+    private lateinit var textAmActivity1: TextView
+    // TODO mentors
+    private lateinit var imageAmActivity2: ImageView
+    private lateinit var textAmActivity2: TextView
+    // TODO mentors
+    private lateinit var divider2: View
+    private lateinit var imageLunch: ImageView
+    private lateinit var textLunch: TextView
+    private lateinit var divider3: View
+    private lateinit var imagePmActivity1: ImageView
+    private lateinit var textPmActivity1: TextView
+    // TODO mentors
+    private lateinit var imagePmActivity2: ImageView
+    private lateinit var textPmActivity2: TextView
+    // TODO mentors
+    private lateinit var divider4: View
+    private lateinit var imageEveningBus: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -74,9 +101,24 @@ class DayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var textAmActivity1: TextView = view.findViewById(R.id.textAmActivity1)
-        textAmActivity1.text = workdayDate
+        // Instantiate view objects
+        imageMorningBus = view.findViewById(R.id.imageMorningBus)
+        imageMorningCoffee = view.findViewById(R.id.imageMorningCoffee)
+        imageAmActivity1 = view.findViewById(R.id.imageAmActivity1)
+        textAmActivity1 = view.findViewById(R.id.textAmActivity1)
+        // TODO mentors
+        imageAmActivity2 = view.findViewById(R.id.imageAmActivity2)
+        textAmActivity2 = view.findViewById(R.id.textAmActivity2)
+        // TODO mentors
+        imageLunch = view.findViewById(R.id.imageLunch)
+        textLunch = view.findViewById(R.id.textLunch)
+        imagePmActivity1 = view.findViewById(R.id.imagePmActivity1)
+        textPmActivity1 = view.findViewById(R.id.textPmActivity1)
+        // TODO mentors
+        imagePmActivity2 = view.findViewById(R.id.imagePmActivity2)
+        textPmActivity2 = view.findViewById(R.id.textPmActivity2)
+        // TODO mentors
+        imageEveningBus = view.findViewById(R.id.imageEveningBus)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
