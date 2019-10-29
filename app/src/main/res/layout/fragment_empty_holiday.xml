@@ -32,7 +32,6 @@
                     android:background="@color/colorPrimaryHeaderFooter"
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/inputlayout_comment"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -45,7 +44,7 @@
                         android:textColor="@color/colorText"
                         android:textSize="@dimen/font_size_huge"
                         android:textStyle="bold"
-                        tools:text="Zaterdag" />
+                        tools:text="Vrijdag" />
 
                     <ImageView
                         android:id="@+id/imageDayIcon"
@@ -57,51 +56,41 @@
 
                 </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/inputlayout_comment"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/icon_content_description"
+                    android:tint="@color/colorPrimaryDark"
+                    app:layout_constraintBottom_toTopOf="@+id/textView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dayNameHeader"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:hint="@string/comment_hint"
-                    android:singleLine="false"
-                    app:layout_constraintBottom_toTopOf="@+id/buttonSendComment"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dayNameHeader">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_comment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="top"
-                        android:imeOptions="actionSend"
-                        android:inputType="textLongMessage|textAutoCorrect|textMultiLine|textCapSentences|textImeMultiLine"
-                        android:singleLine="false"
-                        android:textColor="@color/colorText" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/buttonSendComment"
-                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:enabled="false"
-                    android:text="@string/action_send"
-                    app:icon="@drawable/ic_comment"
+                    android:layout_marginBottom="32dp"
+                    android:contentDescription="@string/activity_icon_content_description"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/font_size_large"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/inputlayout_comment" />
+                    app:layout_constraintTop_toBottomOf="@+id/image"
+                    tools:text="Vakantie" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.core.widget.NestedScrollView>
-
 </layout>

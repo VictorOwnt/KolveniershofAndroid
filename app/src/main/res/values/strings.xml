@@ -15,6 +15,7 @@
     <string name="action_cancel">Annuleren</string>
     <string name="action_save">Opslaan</string>
     <string name="action_new">Nieuw</string>
+    <string name="action_send">Versturen</string>
 
     <string name="menu_logout">Afmelden</string>
     <string name="account">Account</string>
@@ -38,8 +39,12 @@
     <string name="incorrect_password">Ongeldig wachtwoord</string>
     <string name="required">Verplicht</string>
 
+    <string name="comment_hint">Voeg een opmerking toe</string>
+
+    <string name="icon_content_description">Icoon</string>
     <string name="activity_icon_content_description">Icoon activiteit</string>
     <string name="mentor_image_content_description">Afbeelding mentor</string>
     <string name="lunch_icon_content_description">Icoon lunch</string>
+    <string name="day_icon_content_description">Icoon dag</string>
 
 </resources>
