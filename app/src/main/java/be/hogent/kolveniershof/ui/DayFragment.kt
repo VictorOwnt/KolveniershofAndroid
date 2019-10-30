@@ -16,12 +16,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import be.hogent.kolveniershof.R
 import be.hogent.kolveniershof.databinding.FragmentDayBinding
+import be.hogent.kolveniershof.databinding.FragmentEmptyHolidayBinding
+import be.hogent.kolveniershof.databinding.FragmentWeekendBinding
 import be.hogent.kolveniershof.model.ActivityUnit
 import be.hogent.kolveniershof.model.BusUnit
 import be.hogent.kolveniershof.model.LunchUnit
+import be.hogent.kolveniershof.model.Workday
 import be.hogent.kolveniershof.viewmodels.DayViewModel
+import de.hdodenhof.circleimageview.CircleImageView
 import org.joda.time.DateTime
-import org.w3c.dom.Text
 
 private const val ARG_WORKDAY_DATE = "workdayDate"
 private const val ARG_WORKDAY_WEEKEND = "isWeekend"
@@ -80,23 +83,55 @@ class DayFragment : Fragment() {
             workdayDate = it.getString(ARG_WORKDAY_DATE)
             isWeekend = it.getBoolean(ARG_WORKDAY_WEEKEND)
         }
+
+        // Get shared preferences
+        sharedPrefs = activity!!.getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
+
+        // Instantiate viewModel
+        viewModel = ViewModelProviders.of(this).get(DayViewModel::class.java)
+
+        // Get workday
+        arguments?.getString("workdayDate")?.let { viewModel.getWorkdayByDateByUser(sharedPrefs.getString("TOKEN", "")!!, it, sharedPrefs.getString("ID", "")!!) }
+        viewModel.workday.removeObservers(this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(DayViewModel::class.java)
-
-        // Inflate the layout for this fragment
-        val binding: FragmentDayBinding = if (isWeekend!!)
-            DataBindingUtil.inflate(inflater, R.layout.fragment_weekend, container, false)
-        else
-            DataBindingUtil.inflate(inflater, R.layout.fragment_day, container, false)
-        binding.viewmodel = viewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
-
-        return binding.root
+        var root: View?
+        val workday: Workday? = viewModel.getWorkdatByDateByUserSync(sharedPrefs.getString("TOKEN", "")!!, arguments?.getString("workdayDate")!!, sharedPrefs.getString("ID", "")!!)
+        when {
+                workday == null -> {
+                    val binding: FragmentEmptyHolidayBinding =
+                        DataBindingUtil.inflate(inflater, R.layout.fragment_empty_holiday, container, false)
+                    binding.viewmodel = viewModel
+                    binding.lifecycleOwner = this.viewLifecycleOwner
+                    root = binding.root
+                }
+                isWeekend!! -> {
+                    val binding: FragmentWeekendBinding =
+                        DataBindingUtil.inflate(inflater, R.layout.fragment_weekend, container, false)
+                    binding.viewmodel = viewModel
+                    binding.lifecycleOwner = this.viewLifecycleOwner
+                    root = binding.root
+                }
+                workday.isHoliday!! -> {
+                    val binding: FragmentEmptyHolidayBinding =
+                        DataBindingUtil.inflate(inflater, R.layout.fragment_empty_holiday, container, false)
+                    binding.viewmodel = viewModel
+                    binding.lifecycleOwner = this.viewLifecycleOwner
+                    root = binding.root
+                }
+                else -> {
+                    val binding: FragmentDayBinding =
+                        DataBindingUtil.inflate(inflater, R.layout.fragment_day, container, false)
+                    binding.viewmodel = viewModel
+                    binding.lifecycleOwner = this.viewLifecycleOwner
+                    root = binding.root
+                }
+            }
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -123,14 +158,9 @@ class DayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.dag_naam_test)
-        sharedPrefs = activity!!.getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
+        (activity as AppCompatActivity).supportActionBar?.title = "Agenda placeholder"
+    }
 
-        arguments?.getString("workdayDate")?.let { viewModel.getWorkdayByDateByUser(sharedPrefs.getString("TOKEN", "")!!, it, sharedPrefs.getString("ID", "")!!) }
-        viewModel.workday.removeObservers(this)
-        viewModel.workday.observe(this, Observer { workday ->
-            // TODO hier code voor verbegen elementen en andere dergelijke zaken
-        })
 
     }
 

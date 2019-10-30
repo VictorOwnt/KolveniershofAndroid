@@ -40,21 +40,6 @@ class DayViewModel : BaseViewModel()
         )*/
     }
 
-    /*fun refresh() {
-        disposables.clear()
-        disposables.add(
-            kolvApi.getWorkdays()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onRetrieveStart() }
-                .doOnTerminate { onRetrieveFinish() }
-                .subscribe(
-                    { results -> onRetrieveListSuccess(results) },
-                    { error -> onRetrieveError(error) }
-                )
-        )
-    }*/
-
     private fun onRetrieveListSuccess(results: List<Workday>) {
         workdays.value = results
         Logger.i(results.toString())
@@ -86,6 +71,18 @@ class DayViewModel : BaseViewModel()
                     { error -> onRetrieveError(error) }
                 )
         )
+    }
+
+    fun getWorkdatByDateByUserSync(authToken: String, date: String, userId: String): Workday? {
+        var workday: Workday? = null
+        try {
+            workday = kolvApi.getWorkdayByDateByUser(authToken, date, userId)
+                .doOnError { error -> onRetrieveError(error) }
+                .blockingSingle()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return workday
     }
 
     private fun onRetrieveError(error: Throwable) {
