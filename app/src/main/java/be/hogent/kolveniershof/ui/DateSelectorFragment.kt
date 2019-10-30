@@ -15,7 +15,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import be.hogent.kolveniershof.R
 import org.joda.time.DateTime
-
+import org.joda.time.LocalDate
+import java.lang.IllegalArgumentException
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 // Number of pages in ViewPager (8 weeks total)
@@ -24,7 +28,8 @@ private const val ARG_WORKDAY_DATE = "workdayDate"
 
 class DateSelectorFragment : Fragment() {
 
-    private var workdayDate : String? = null
+
+    private var workdayDate = DateTime.now()
 
     companion object {
         @JvmStatic
@@ -32,6 +37,15 @@ class DateSelectorFragment : Fragment() {
             DateSelectorFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_WORKDAY_DATE, workdayId)
+                    workdayDate = try{
+
+                        DateTime.parse(workdayId)
+
+                    }catch (p : IllegalArgumentException){
+                        DateTime.now()
+                    }
+
+
                 }
             }
     }
@@ -47,7 +61,7 @@ class DateSelectorFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            workdayDate = it.getString(ARG_WORKDAY_DATE)
+
         }
         setHasOptionsMenu(true)
     }
@@ -79,7 +93,7 @@ class DateSelectorFragment : Fragment() {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
             override fun onPageSelected(position: Int) {
-                val date = DateTime.now().minusDays(29 - position)
+                val date = workdayDate.minusDays(29 - position)
                 // Shows correct dates in buttons
                 dateSelectorMinusTwo.setDate(date.minusDays(2))
                 dateSelectorMinusOne.setDate(date.minusDays(1))
@@ -112,7 +126,7 @@ class DateSelectorFragment : Fragment() {
 
         override fun getItem(position: Int): Fragment {
             // Gets date to show first
-            val date = DateTime.now().minusDays(29 - position)
+            val date = workdayDate
             // Loads DayFragment
             return DayFragment.newInstance(date)
         }

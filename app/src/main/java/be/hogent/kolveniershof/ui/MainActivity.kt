@@ -1,5 +1,6 @@
 package be.hogent.kolveniershof.ui
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.util.*
 
 class MainActivity :
     AppCompatActivity(),
@@ -82,6 +84,8 @@ class MainActivity :
 
         // Set logger
         Logger.addLogAdapter(AndroidLogAdapter())
+
+
     }
 
     override fun onBackPressed() {
@@ -102,20 +106,31 @@ class MainActivity :
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button.
-        /*
-        return when (item.itemId) {
-            R.id.action_new -> {
-                when (nav_view.checkedItem!!.itemId) {
-                    R.id.nav_speedCamera -> openDetailFragment(AddSpeedCameraFragment.newInstance())
-                    R.id.nav_avgSpeedCheck -> openDetailFragment(AddAvgSpeedCheckFragment.newInstance())
-                    R.id.nav_policeCheck -> openDetailFragment(AddPoliceCheckFragment.newInstance())
-                }
-                return true
+
+        when (item.itemId) {
+            R.id.action_calendar -> {
+                val cal = Calendar.getInstance()
+                val y = cal.get(Calendar.YEAR)
+                val m = cal.get(Calendar.MONTH)
+                val d = cal.get(Calendar.DAY_OF_MONTH)
+
+
+                val datepickerdialog: DatePickerDialog = DatePickerDialog(this, R.style.DialogTheme, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+
+                    openDetailFragment(DateSelectorFragment.newInstance(("$year-${monthOfYear+1}-$dayOfMonth")))
+
+                }, y, m, d)
+
+
+                datepickerdialog.show()
             }
-            else -> super.onOptionsItemSelected(item)
         }
-        */
-        return false
+
+        return true
+
+
+
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
