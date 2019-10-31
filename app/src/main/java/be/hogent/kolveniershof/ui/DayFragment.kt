@@ -3,7 +3,6 @@ package be.hogent.kolveniershof.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import android.view.LayoutInflater
@@ -26,13 +25,10 @@ class DayFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(workdayDate: DateTime?) =
+        fun newInstance(workdayDate: DateTime) =
             DayFragment().apply {
                 arguments = Bundle().apply {
-                    var date: String? = null
-                    if (workdayDate != null) {
-                        date = workdayDate.toString("dd_MM_yyyy")
-                    }
+                    val date = workdayDate.toString("dd_MM_yyyy")
                     putString(ARG_WORKDAY_DATE, date)
                 }
             }
@@ -72,7 +68,7 @@ class DayFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.dag_naam_test)
+        (activity as AppCompatActivity).supportActionBar?.title = "Kalender"
         sharedPrefs = activity!!.getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
 
         arguments?.getString("workdayDate")?.let { viewModel.getWorkdayByDateByUser(sharedPrefs.getString("TOKEN", "")!!, it, sharedPrefs.getString("ID", "")!!) }
