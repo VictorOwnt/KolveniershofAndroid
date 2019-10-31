@@ -3,7 +3,6 @@ package be.hogent.kolveniershof.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,11 +14,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import be.hogent.kolveniershof.R
 import org.joda.time.DateTime
-import org.joda.time.LocalDate
 import java.lang.IllegalArgumentException
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 // Number of pages in ViewPager (8 weeks total)
@@ -28,24 +23,14 @@ private const val ARG_WORKDAY_DATE = "workdayDate"
 
 class DateSelectorFragment : Fragment() {
 
-
-    private var workdayDate = DateTime.now()
+    private var workdayDate: DateTime? = null
 
     companion object {
         @JvmStatic
-        fun newInstance(workdayId: String?) =
+        fun newInstance(date: DateTime) =
             DateSelectorFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_WORKDAY_DATE, workdayId)
-                    workdayDate = try{
-
-                        DateTime.parse(workdayId)
-
-                    }catch (p : IllegalArgumentException){
-                        DateTime.now()
-                    }
-
-
+                    putString(ARG_WORKDAY_DATE, date.toString())
                 }
             }
     }
@@ -61,8 +46,10 @@ class DateSelectorFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
+            workdayDate = DateTime.parse(it.getString(ARG_WORKDAY_DATE))
         }
+        // initialize shared preferences
+        sharedPrefs = activity!!.getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
         setHasOptionsMenu(true)
     }
 
@@ -93,7 +80,7 @@ class DateSelectorFragment : Fragment() {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
             override fun onPageSelected(position: Int) {
-                val date = workdayDate.minusDays(29 - position)
+                val date = workdayDate!!.minusDays(29 - position)
                 // Shows correct dates in buttons
                 dateSelectorMinusTwo.setDate(date.minusDays(2))
                 dateSelectorMinusOne.setDate(date.minusDays(1))
@@ -128,13 +115,8 @@ class DateSelectorFragment : Fragment() {
             // Gets date to show first
             val date = workdayDate
             // Loads DayFragment
-            return DayFragment.newInstance(date)
+            return DayFragment.newInstance(date!!)
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        sharedPrefs = activity!!.getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

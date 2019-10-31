@@ -16,13 +16,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.ListFragment
 import be.hogent.kolveniershof.R
 import com.google.android.material.navigation.NavigationView
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import org.joda.time.DateTime
 import java.util.*
 
 class MainActivity :
@@ -109,27 +108,23 @@ class MainActivity :
 
         when (item.itemId) {
             R.id.action_calendar -> {
+                // Get date to show
                 val cal = Calendar.getInstance()
                 val y = cal.get(Calendar.YEAR)
                 val m = cal.get(Calendar.MONTH)
                 val d = cal.get(Calendar.DAY_OF_MONTH)
 
-
-                val datepickerdialog: DatePickerDialog = DatePickerDialog(this, R.style.DialogTheme, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-
-                    openDetailFragment(DateSelectorFragment.newInstance(("$year-${monthOfYear+1}-$dayOfMonth")))
-
+                // Show datepicker dialog
+                val datePickerDialog = DatePickerDialog(this, R.style.DialogTheme, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    // Change dateSelector to selected date
+                    val date = DateTime(year, monthOfYear+1, dayOfMonth, 0, 0, 0)
+                    openDetailFragment(DateSelectorFragment.newInstance(date))
                 }, y, m, d)
-
-
-                datepickerdialog.show()
+                datePickerDialog.show()
             }
         }
 
         return true
-
-
-
 
     }
 
@@ -137,7 +132,7 @@ class MainActivity :
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         // Handle navigation view item clicks.
         when (item.itemId) {
-            R.id.nav_calendar -> openDetailFragment(DateSelectorFragment.newInstance("date")) // todo
+            R.id.nav_calendar -> openDetailFragment(DateSelectorFragment.newInstance(DateTime.now())) // todo
             //R.id.nav_busses -> openDetailFragment(BUSSES) // todo
             R.id.nav_logout -> {
                 // Logout
