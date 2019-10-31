@@ -73,7 +73,7 @@ class DayViewModel : BaseViewModel()
         )
     }
 
-    fun getWorkdatByDateByUserSync(authToken: String, date: String, userId: String): Workday? {
+    fun getWorkdayByDateByUserSync(authToken: String, date: String, userId: String): Workday? {
         var workday: Workday? = null
         try {
             workday = kolvApi.getWorkdayByDateByUser(authToken, date, userId)

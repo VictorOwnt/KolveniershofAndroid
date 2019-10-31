@@ -38,12 +38,8 @@ class DayFragment : Fragment() {
         fun newInstance(workdayDate: DateTime) =
             DayFragment().apply {
                 arguments = Bundle().apply {
-                    val date = workdayDate.toString("dd_MM_yyyy")
-                        if (workdayDate.toString("e") == "6" || workdayDate.toString("e") == "7")
-                            weekend = true
-                    var weekend = false
-                    putString(ARG_WORKDAY_DATE, date)
-                    putBoolean(ARG_WORKDAY_WEEKEND, weekend)
+                    putString(ARG_WORKDAY_DATE, workdayDate.toString("dd_MM_yyyy"))
+                    putBoolean(ARG_WORKDAY_WEEKEND, (workdayDate.toString("e") == "6" || workdayDate.toString("e") == "7"))
                 }
             }
     }
@@ -96,7 +92,7 @@ class DayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var root: View?
-        val workday: Workday? = viewModel.getWorkdatByDateByUserSync(sharedPrefs.getString("TOKEN", "")!!, arguments?.getString("workdayDate")!!, sharedPrefs.getString("ID", "")!!)
+        val workday: Workday? = viewModel.getWorkdayByDateByUserSync(sharedPrefs.getString("TOKEN", "")!!, arguments?.getString("workdayDate")!!, sharedPrefs.getString("ID", "")!!)
         when {
                 workday == null -> {
                     val binding: FragmentEmptyHolidayBinding =
