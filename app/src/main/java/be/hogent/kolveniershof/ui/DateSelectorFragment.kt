@@ -113,9 +113,9 @@ class DateSelectorFragment : Fragment() {
 
         override fun getItem(position: Int): Fragment {
             // Gets date to show first
-            val date = workdayDate
+            val date = workdayDate!!.minusDays(29-position)
             // Loads DayFragment
-            return DayFragment.newInstance(date!!)
+            return DayFragment.newInstance(date)
         }
     }
 
