@@ -208,6 +208,27 @@ class DayFragment : Fragment() {
     }
 
     private fun showBus(view: View, busUnit: BusUnit?, isMorning: Boolean) {
+        if (isMorning) {
+            imageMorningBus = view.findViewById(R.id.imageMorningBus)
+            imageMorningCoffee = view.findViewById(R.id.imageMorningCoffee)
+            divider4 = view.findViewById(R.id.divider4)
+            if (busUnit != null) {
+                imageMorningBus.setImageResource(R.drawable.ic_menu_bus)
+                imageMorningBus.setColorFilter(Color.parseColor(busUnit.bus.color))
+            } else {
+                imageMorningBus.visibility = View.GONE
+            }
+            imageMorningCoffee.setImageResource(R.drawable.ic_coffee)
+        } else {
+            imageEveningBus = view.findViewById(R.id.imageEveningBus)
+            if (busUnit != null) {
+                imageEveningBus.setImageResource(R.drawable.ic_menu_bus)
+                imageEveningBus.setColorFilter(Color.parseColor(busUnit.bus.color))
+            } else {
+                imageEveningBus.visibility = View.GONE
+                divider4.visibility = View.GONE
+            }
+        }
     }
 
     private fun showActivity(view: View, activityUnits: Array<ActivityUnit?>, isAm: Boolean) {
