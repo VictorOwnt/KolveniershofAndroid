@@ -232,6 +232,67 @@ class DayFragment : Fragment() {
     }
 
     private fun showActivity(view: View, activityUnits: Array<ActivityUnit?>, isAm: Boolean) {
+        if (isAm) {
+            imageAmActivity1 = view.findViewById(R.id.imageAmActivity1)
+            textAmActivity1 = view.findViewById(R.id.textAmActivity1)
+            imageAmMentor1 = view.findViewById(R.id.imageAmMentor1)
+            imageAmActivity2 = view.findViewById(R.id.imageAmActivity2)
+            textAmActivity2 = view.findViewById(R.id.textAmActivity2)
+            imageAmMentor2 = view.findViewById(R.id.imageAmMentor2)
+            divider2 = view.findViewById(R.id.divider2)
+            if (!activityUnits.isNullOrEmpty()) {
+                imageAmActivity1.setImageResource(getActivityImage(activityUnits[0]!!.getImageName()))
+                textAmActivity1.text = activityUnits[0].toString()
+                // TODO - mentor
+                if (activityUnits.size > 1) {
+                    imageAmActivity2.setImageResource(getActivityImage(activityUnits[1]!!.getImageName()))
+                    textAmActivity2.text = activityUnits[1].toString()
+                    // TODO - mentor
+                } else {
+                    imageAmActivity2.visibility = View.GONE
+                    textAmActivity2.visibility = View.GONE
+                    imageAmMentor2.visibility = View.GONE
+                }
+            } else {
+                imageAmActivity1.visibility = View.GONE
+                textAmActivity1.visibility = View.GONE
+                imageAmMentor1.visibility = View.GONE
+                imageAmActivity2.visibility = View.GONE
+                textAmActivity2.visibility = View.GONE
+                imageAmMentor2.visibility = View.GONE
+                divider2.visibility = View.GONE
+            }
+        } else {
+            imagePmActivity1 = view.findViewById(R.id.imagePmActivity1)
+            textPmActivity1 = view.findViewById(R.id.textPmActivity1)
+            imagePmMentor1 = view.findViewById(R.id.imagePmMentor1)
+            imagePmActivity2 = view.findViewById(R.id.imagePmActivity2)
+            textPmActivity2 = view.findViewById(R.id.textPmActivity2)
+            imagePmMentor2 = view.findViewById(R.id.imagePmMentor2)
+            divider4 = view.findViewById(R.id.divider4)
+            if (!activityUnits.isNullOrEmpty()) {
+                imagePmActivity1.setImageResource(getActivityImage(activityUnits[0]!!.getImageName()))
+                textPmActivity1.text = activityUnits[0].toString()
+                // TODO - mentor
+                if (activityUnits.size > 1) {
+                    imagePmActivity2.setImageResource(getActivityImage(activityUnits[1]!!.getImageName()))
+                    textPmActivity2.text = activityUnits[1].toString()
+                    // TODO - mentor
+                } else {
+                    imagePmActivity2.visibility = View.GONE
+                    textPmActivity2.visibility = View.GONE
+                    imagePmMentor2.visibility = View.GONE
+                }
+            } else {
+                imagePmActivity1.visibility = View.GONE
+                textPmActivity1.visibility = View.GONE
+                imagePmMentor1.visibility = View.GONE
+                imagePmActivity2.visibility = View.GONE
+                textPmActivity2.visibility = View.GONE
+                imagePmMentor2.visibility = View.GONE
+                divider4.visibility = View.GONE
+            }
+        }
     }
 
     private fun showLunch(view: View, lunchUnit: LunchUnit?) {
@@ -246,6 +307,10 @@ class DayFragment : Fragment() {
             textLunch.visibility = View.GONE
             divider3.visibility = View.GONE
         }
+    }
+
+    private fun getActivityImage(imageName: String) : Int {
+        return resources.getIdentifier("ic_activity_$imageName", "drawable", activity!!.packageName)
     }
 
 }
