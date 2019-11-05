@@ -1,4 +1,4 @@
-package be.hogent.kolveniershof
+package be.hogent.kolveniershof.util
 
 import android.content.Context
 import com.bumptech.glide.Glide
