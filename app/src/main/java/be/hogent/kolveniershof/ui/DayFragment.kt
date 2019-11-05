@@ -21,13 +21,12 @@ import be.hogent.kolveniershof.R
 import be.hogent.kolveniershof.databinding.FragmentDayBinding
 import be.hogent.kolveniershof.databinding.FragmentEmptyHolidayBinding
 import be.hogent.kolveniershof.databinding.FragmentWeekendBinding
-import be.hogent.kolveniershof.model.ActivityUnit
-import be.hogent.kolveniershof.model.BusUnit
-import be.hogent.kolveniershof.model.LunchUnit
-import be.hogent.kolveniershof.model.Workday
+import be.hogent.kolveniershof.model.*
+import be.hogent.kolveniershof.util.GlideApp
 import be.hogent.kolveniershof.viewmodels.DayViewModel
 import com.google.android.material.textfield.TextInputEditText
-import de.hdodenhof.circleimageview.CircleImageView
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageException
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.util.*
@@ -63,20 +62,24 @@ class DayFragment : Fragment() {
     private lateinit var divider1: View
     private lateinit var imageAmActivity1: ImageView
     private lateinit var textAmActivity1: TextView
-    private lateinit var imageAmMentor1: CircleImageView
+    private lateinit var imageAmMentor1: ImageView
+    private lateinit var textAmMentor1Amount: TextView
     private lateinit var imageAmActivity2: ImageView
     private lateinit var textAmActivity2: TextView
-    private lateinit var imageAmMentor2: CircleImageView
+    private lateinit var imageAmMentor2: ImageView
+    private lateinit var textAmMentor2Amount: TextView
     private lateinit var divider2: View
     private lateinit var imageLunch: ImageView
     private lateinit var textLunch: TextView
     private lateinit var divider3: View
     private lateinit var imagePmActivity1: ImageView
     private lateinit var textPmActivity1: TextView
-    private lateinit var imagePmMentor1: CircleImageView
+    private lateinit var imagePmMentor1: ImageView
+    private lateinit var textPmMentor1Amount: TextView
     private lateinit var imagePmActivity2: ImageView
     private lateinit var textPmActivity2: TextView
-    private lateinit var imagePmMentor2: CircleImageView
+    private lateinit var imagePmMentor2: ImageView
+    private lateinit var textPmMentor2Amount: TextView
     private lateinit var divider4: View
     private lateinit var imageEveningBus: ImageView
     // Weekend
@@ -236,18 +239,20 @@ class DayFragment : Fragment() {
             imageAmActivity1 = view.findViewById(R.id.imageAmActivity1)
             textAmActivity1 = view.findViewById(R.id.textAmActivity1)
             imageAmMentor1 = view.findViewById(R.id.imageAmMentor1)
+            textAmMentor1Amount = view.findViewById(R.id.textAmMentor1Amount)
             imageAmActivity2 = view.findViewById(R.id.imageAmActivity2)
             textAmActivity2 = view.findViewById(R.id.textAmActivity2)
             imageAmMentor2 = view.findViewById(R.id.imageAmMentor2)
+            textAmMentor2Amount = view.findViewById(R.id.textAmMentor2Amount)
             divider2 = view.findViewById(R.id.divider2)
             if (!activityUnits.isNullOrEmpty()) {
                 imageAmActivity1.setImageResource(getActivityImage(activityUnits[0]!!.getImageName()))
                 textAmActivity1.text = activityUnits[0].toString()
-                // TODO - mentor
+                loadMentorImage(activityUnits[0]!!.mentors.toTypedArray(), imageAmMentor1, textAmMentor1Amount)
                 if (activityUnits.size > 1) {
                     imageAmActivity2.setImageResource(getActivityImage(activityUnits[1]!!.getImageName()))
                     textAmActivity2.text = activityUnits[1].toString()
-                    // TODO - mentor
+                    loadMentorImage(activityUnits[1]!!.mentors.toTypedArray(), imageAmMentor2, textAmMentor2Amount)
                 } else {
                     imageAmActivity2.visibility = View.GONE
                     textAmActivity2.visibility = View.GONE
@@ -266,18 +271,20 @@ class DayFragment : Fragment() {
             imagePmActivity1 = view.findViewById(R.id.imagePmActivity1)
             textPmActivity1 = view.findViewById(R.id.textPmActivity1)
             imagePmMentor1 = view.findViewById(R.id.imagePmMentor1)
+            textPmMentor1Amount = view.findViewById(R.id.textPmMentor1Amount)
             imagePmActivity2 = view.findViewById(R.id.imagePmActivity2)
             textPmActivity2 = view.findViewById(R.id.textPmActivity2)
             imagePmMentor2 = view.findViewById(R.id.imagePmMentor2)
+            textPmMentor2Amount = view.findViewById(R.id.textPmMentor2Amount)
             divider4 = view.findViewById(R.id.divider4)
             if (!activityUnits.isNullOrEmpty()) {
                 imagePmActivity1.setImageResource(getActivityImage(activityUnits[0]!!.getImageName()))
                 textPmActivity1.text = activityUnits[0].toString()
-                // TODO - mentor
+                loadMentorImage(activityUnits[0]!!.mentors.toTypedArray(), imagePmMentor1, textPmMentor1Amount)
                 if (activityUnits.size > 1) {
                     imagePmActivity2.setImageResource(getActivityImage(activityUnits[1]!!.getImageName()))
                     textPmActivity2.text = activityUnits[1].toString()
-                    // TODO - mentor
+                    loadMentorImage(activityUnits[1]!!.mentors.toTypedArray(), imagePmMentor2, textPmMentor2Amount)
                 } else {
                     imagePmActivity2.visibility = View.GONE
                     textPmActivity2.visibility = View.GONE
@@ -311,6 +318,35 @@ class DayFragment : Fragment() {
 
     private fun getActivityImage(imageName: String) : Int {
         return resources.getIdentifier("ic_activity_$imageName", "drawable", activity!!.packageName)
+    }
+
+    private fun loadMentorImage(mentors: Array<User>, imageView: ImageView, textView: TextView) {
+        // Set image
+        val imgUrl = mentors[0].imgUrl!!
+        val mentorImg = try {
+            FirebaseStorage.getInstance().reference.child(imgUrl)
+        } catch (e: Exception) {
+            when(e) {
+                is StorageException, is IllegalArgumentException -> null
+                else -> throw e
+            }
+        }
+        if (mentorImg == null)
+            imageView.setColorFilter(R.color.colorPrimaryDark)
+        GlideApp.with(this)
+            .load(mentorImg)
+            .placeholder(R.drawable.ic_face)
+            .fallback(R.drawable.ic_face)
+            .fitCenter()
+            .circleCrop()
+            .into(imageView)
+
+        // Set amount of mentors if necessary
+        if (mentors.size > 1) {
+            textView.visibility = View.VISIBLE
+            textView.text = mentors.size.toString()
+            imageView.setColorFilter(R.color.colorPrimaryDark)
+        }
     }
 
 }
