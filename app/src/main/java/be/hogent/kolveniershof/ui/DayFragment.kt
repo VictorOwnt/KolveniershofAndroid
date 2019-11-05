@@ -171,6 +171,19 @@ class DayFragment : Fragment() {
 
     @SuppressLint("DefaultLocale")
     private fun showDay(view: View, date: DateTime) {
+        textDayName = view.findViewById(R.id.textDayName)
+        imageDayIcon = view.findViewById(R.id.imageDayIcon)
+        val icons = arrayOf(
+            R.drawable.ic_day_moon,
+            R.drawable.ic_day_beach_ball,
+            R.drawable.ic_day_angry,
+            R.drawable.ic_day_cloud_lightning,
+            R.drawable.ic_day_bird,
+            R.drawable.ic_day_flower_bouquet,
+            R.drawable.ic_day_sun
+        )
+        imageDayIcon.setImageResource(icons[date.dayOfWeek-1])
+        textDayName.text = date.toString("EEEE").capitalize()
     }
 
     private fun showEmptyDay(view: View, isHoliday: Boolean) {
