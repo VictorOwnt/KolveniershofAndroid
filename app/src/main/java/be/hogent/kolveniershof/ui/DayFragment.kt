@@ -187,6 +187,15 @@ class DayFragment : Fragment() {
     }
 
     private fun showEmptyDay(view: View, isHoliday: Boolean) {
+        textEmptyHoliday = view.findViewById(R.id.textEmptyHoliday)
+        imageEmptyHoliday = view.findViewById(R.id.imageEmptyHoliday)
+        if (isHoliday) {
+            imageEmptyHoliday.setImageResource(R.drawable.ic_beach_umbrella)
+            textEmptyHoliday.text = getString(R.string.holiday)
+        } else {
+            imageEmptyHoliday.setImageResource(R.drawable.ic_ask_question)
+            textEmptyHoliday.text = getString(R.string.empty_day)
+        }
     }
 
     private fun showWeekend(view: View, comment: String?) {
