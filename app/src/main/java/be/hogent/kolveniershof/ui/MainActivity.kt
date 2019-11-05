@@ -3,21 +3,25 @@ package be.hogent.kolveniershof.ui
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import be.hogent.kolveniershof.GlideApp
 import be.hogent.kolveniershof.R
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageException
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.content_main.*
@@ -35,9 +39,10 @@ class MainActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sharedPreferences = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
 
         // Check is user is logged in
-        if (!getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE).getBoolean("ISLOGGEDIN", false)) {
+        if (!sharedPreferences.getBoolean("ISLOGGEDIN", false)) {
             // Open AuthActivity
             val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
@@ -58,16 +63,33 @@ class MainActivity :
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        // Set name and email in navHeader
+        // Setup navHeader
         val headerView = navView.getHeaderView(0)
+        val navHeaderImage = headerView.findViewById<ImageView>(R.id.nav_header_image)
         val navHeaderName = headerView.findViewById<TextView>(R.id.nav_header_name)
         val navHeaderEmail = headerView.findViewById<TextView>(R.id.nav_header_email)
-        navHeaderName.text = (getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
-            .getString("FIRSTNAME", getString(R.string.app_name)) + " " +
-                getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
-                    .getString("LASTNAME", ""))
-        navHeaderEmail.text = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
-            .getString("EMAIL", "")
+        // Load image
+        val imgUrl = sharedPreferences.getString("IMGURL", "")!!
+        val img = try {
+            FirebaseStorage.getInstance().reference.child(imgUrl)
+        } catch (e: Exception) {
+            when(e) {
+                is StorageException, is IllegalArgumentException -> null
+                else -> throw e
+            }
+        }
+        GlideApp.with(this)
+            .load(img)
+            .placeholder(R.drawable.ic_face)
+            .fallback(R.drawable.ic_face)
+            .fitCenter()
+            .circleCrop()
+            .into(navHeaderImage)
+        // Load name
+        navHeaderName.text = (sharedPreferences.getString("FIRSTNAME", getString(R.string.app_name)) + " " +
+                sharedPreferences.getString("LASTNAME", ""))
+        // Load email
+        navHeaderEmail.text = sharedPreferences.getString("EMAIL", "")
 
         navView.setNavigationItemSelectedListener(this)
         if (savedInstanceState == null) {
