@@ -35,17 +35,28 @@ class UserViewModel : BaseViewModel() {
      */
     fun login(email: String, password: String): User {
         try {
+            onRetrieveStart()
             return kolvApi.login(email, password)
                 .doOnError { error -> onRetrieveError(error) }
                 .blockingGet()
 
         } catch (e: Exception) {
             throw LoginException((e as HttpException).response()!!.errorBody()!!.string())
+        } finally {
+            onRetrieveFinish()
         }
     }
 
     private fun onRetrieveError(error: Throwable) {
         Logger.e(error.message!!)
+    }
+
+    private fun onRetrieveStart() {
+        loadingVisibility.value = View.VISIBLE
+    }
+
+    private fun onRetrieveFinish() {
+        loadingVisibility.value = View.GONE
     }
 
     /**

@@ -24,6 +24,8 @@ class DayViewModel : BaseViewModel() {
     private var disposables = CompositeDisposable()
 
     init {
+        objectVisibility.value = View.VISIBLE
+        loadingVisibility.value = View.GONE
     }
 
     fun getWorkdayById(authToken: String, id: String) {
@@ -57,11 +59,14 @@ class DayViewModel : BaseViewModel() {
     fun getWorkdayByDateByUserSync(authToken: String, date: String, userId: String): Workday? {
         var workday: Workday? = null
         try {
+            onRetrieveStart()
             workday = kolvApi.getWorkdayByDateByUser(authToken, date, userId)
                 .doOnError { error -> onRetrieveError(error) }
                 .blockingSingle()
         } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            onRetrieveFinish()
         }
         return workday
     }
@@ -88,5 +93,13 @@ class DayViewModel : BaseViewModel() {
     private fun onRetrieveFinish() {
         loadingVisibility.value = View.GONE
         objectVisibility.value = View.VISIBLE
+    }
+
+    /**
+     * Disposes the subscription when the [BaseViewModel] is no longer used.
+     */
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
     }
 }
