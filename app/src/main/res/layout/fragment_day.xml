@@ -132,7 +132,6 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textAmActivity1"
                     app:layout_constraintTop_toBottomOf="@+id/divider1"
-                    android:tint="@color/colorPrimaryDark"
                     tools:src="@drawable/ic_face" />
 
                 <TextView
@@ -142,13 +141,15 @@
                     android:gravity="center"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/font_size_large"
                     android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/imageAmMentor1"
                     app:layout_constraintEnd_toEndOf="@+id/imageAmMentor1"
                     app:layout_constraintStart_toStartOf="@+id/imageAmMentor1"
                     app:layout_constraintTop_toTopOf="@+id/imageAmMentor1"
-                    tools:text="2" />
+                    tools:text="2"
+                    tools:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/imageAmActivity2"
@@ -185,7 +186,6 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textAmActivity2"
                     app:layout_constraintTop_toBottomOf="@+id/imageAmMentor1"
-                    android:tint="@color/colorPrimaryDark"
                     tools:src="@drawable/ic_face" />
 
                 <TextView
@@ -194,6 +194,7 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:textAlignment="center"
+                    android:textSize="@dimen/font_size_large"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
                     android:visibility="gone"
@@ -288,7 +289,6 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textPmActivity1"
                     app:layout_constraintTop_toBottomOf="@+id/divider3"
-                    android:tint="@color/colorPrimaryDark"
                     tools:src="@drawable/ic_face" />
 
                 <TextView
@@ -297,6 +297,7 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:textAlignment="center"
+                    android:textSize="@dimen/font_size_large"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
                     android:visibility="gone"
@@ -344,7 +345,6 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textPmActivity2"
                     app:layout_constraintTop_toBottomOf="@+id/imagePmMentor1"
-                    android:tint="@color/colorPrimaryDark"
                     tools:src="@drawable/ic_face" />
 
                 <TextView
@@ -353,6 +353,7 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:textAlignment="center"
+                    android:textSize="@dimen/font_size_large"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
                     android:visibility="gone"
