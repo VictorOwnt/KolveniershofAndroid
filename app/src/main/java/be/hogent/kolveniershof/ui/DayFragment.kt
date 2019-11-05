@@ -199,6 +199,12 @@ class DayFragment : Fragment() {
     }
 
     private fun showWeekend(view: View, comment: String?) {
+        inputComment = view.findViewById(R.id.input_comment)
+        buttonSendComment = view.findViewById(R.id.buttonSendComment)
+        // Fill comment if present
+        if (!comment.isNullOrBlank()) {
+            inputComment.text = Editable.Factory.getInstance().newEditable(comment)
+        }
     }
 
     private fun showBus(view: View, busUnit: BusUnit?, isMorning: Boolean) {
