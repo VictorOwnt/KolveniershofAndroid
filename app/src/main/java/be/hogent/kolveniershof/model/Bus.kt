@@ -24,6 +24,6 @@ data class Bus(
     val iconUrl: String
 ) : Parcelable {
     override fun toString(): String {
-        return name
+        return name.trim().capitalize()
     }
 }

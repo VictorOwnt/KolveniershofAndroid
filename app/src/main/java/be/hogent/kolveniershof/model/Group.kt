@@ -21,6 +21,6 @@ data class Group(
     val members: MutableList<User>
 ) : Parcelable {
     override fun toString(): String {
-        return name
+        return name.trim().capitalize()
     }
 }

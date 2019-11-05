@@ -26,4 +26,7 @@ data class ActivityUnit(
     override fun toString(): String {
         return activity.toString()
     }
+    fun getImageName(): String {
+        return activity.icon
+    }
 }

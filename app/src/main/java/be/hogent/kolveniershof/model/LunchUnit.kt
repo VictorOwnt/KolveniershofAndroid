@@ -24,6 +24,6 @@ data class LunchUnit(
     val clients: MutableList<User>
 ) : Parcelable {
     override fun toString(): String {
-        return lunch
+        return lunch.trim().capitalize()
     }
 }
