@@ -71,6 +71,7 @@ class LoginFragment : Fragment() {
                     .putString("EMAIL", loggedInUser.email)
                     .putString("FIRSTNAME", loggedInUser.firstName)
                     .putString("LASTNAME", loggedInUser.lastName)
+                    .putString("IMGURL", loggedInUser.imgUrl)
                     .putBoolean("ADMIN", loggedInUser.isAdmin)
                     .putString("TOKEN", "Bearer " + loggedInUser.token)
                     .putBoolean("ISLOGGEDIN", true)
