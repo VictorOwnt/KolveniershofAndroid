@@ -51,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/day_icon_content_description"
-                        android:src="@drawable/moon_symbol"
+                        tools:src="@drawable/ic_day_moon"
                         android:tint="@color/colorPrimaryDark" />
 
                 </LinearLayout>
