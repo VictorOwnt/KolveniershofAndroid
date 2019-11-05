@@ -235,6 +235,17 @@ class DayFragment : Fragment() {
     }
 
     private fun showLunch(view: View, lunchUnit: LunchUnit?) {
+        imageLunch = view.findViewById(R.id.imageLunch)
+        textLunch = view.findViewById(R.id.textLunch)
+        divider3 = view.findViewById(R.id.divider3)
+        if (lunchUnit != null) {
+            imageLunch.setImageResource(R.drawable.ic_restaurant)
+            textLunch.text = lunchUnit.lunch
+        } else {
+            imageLunch.visibility = View.GONE
+            textLunch.visibility = View.GONE
+            divider3.visibility = View.GONE
+        }
     }
 
 }
