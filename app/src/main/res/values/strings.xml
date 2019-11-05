@@ -41,6 +41,9 @@
 
     <string name="comment_hint">Voeg een opmerking toe</string>
 
+    <string name="holiday">Vrijaf</string>
+    <string name="empty_day">Nog geen planning</string>
+
     <string name="icon_content_description">Icoon</string>
     <string name="activity_icon_content_description">Icoon activiteit</string>
     <string name="mentor_image_content_description">Afbeelding mentor</string>
