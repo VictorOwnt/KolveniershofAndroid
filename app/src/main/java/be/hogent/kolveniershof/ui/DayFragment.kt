@@ -249,9 +249,14 @@ class DayFragment : Fragment() {
                 imageAmActivity1.setImageResource(getActivityImage(activityUnits[0]!!.getImageName()))
                 textAmActivity1.text = activityUnits[0].toString()
                 loadMentorImage(activityUnits[0]!!.mentors.toTypedArray(), imageAmMentor1, textAmMentor1Amount)
+                // Mentor image
+                loadMentorImage(activityUnits[0]!!.mentors.toTypedArray(), imageAmMentor1, textAmMentor1Amount)
+
                 if (activityUnits.size > 1) {
+                    // Activity image
                     imageAmActivity2.setImageResource(getActivityImage(activityUnits[1]!!.getImageName()))
                     textAmActivity2.text = activityUnits[1].toString()
+                    // Mentor image
                     loadMentorImage(activityUnits[1]!!.mentors.toTypedArray(), imageAmMentor2, textAmMentor2Amount)
                 } else {
                     imageAmActivity2.visibility = View.GONE
@@ -280,10 +285,12 @@ class DayFragment : Fragment() {
             if (!activityUnits.isNullOrEmpty()) {
                 imagePmActivity1.setImageResource(getActivityImage(activityUnits[0]!!.getImageName()))
                 textPmActivity1.text = activityUnits[0].toString()
+                // Mentor image
                 loadMentorImage(activityUnits[0]!!.mentors.toTypedArray(), imagePmMentor1, textPmMentor1Amount)
                 if (activityUnits.size > 1) {
                     imagePmActivity2.setImageResource(getActivityImage(activityUnits[1]!!.getImageName()))
                     textPmActivity2.text = activityUnits[1].toString()
+                    // Mentor image
                     loadMentorImage(activityUnits[1]!!.mentors.toTypedArray(), imagePmMentor2, textPmMentor2Amount)
                 } else {
                     imagePmActivity2.visibility = View.GONE
