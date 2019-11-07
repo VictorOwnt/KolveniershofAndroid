@@ -120,7 +120,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imageAmActivity1"
                     tools:text="textAmActivity1" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/imageAmMentor1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -132,7 +132,24 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textAmActivity1"
                     app:layout_constraintTop_toBottomOf="@+id/divider1"
-                    tools:src="@color/colorPrimaryDark" />
+                    tools:src="@drawable/ic_face" />
+
+                <TextView
+                    android:id="@+id/textAmMentor1Amount"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/font_size_large"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageAmMentor1"
+                    app:layout_constraintEnd_toEndOf="@+id/imageAmMentor1"
+                    app:layout_constraintStart_toStartOf="@+id/imageAmMentor1"
+                    app:layout_constraintTop_toTopOf="@+id/imageAmMentor1"
+                    tools:text="2"
+                    tools:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/imageAmActivity2"
@@ -157,7 +174,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imageAmActivity2"
                     tools:text="textAmActivity2" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/imageAmMentor2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -169,7 +186,23 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textAmActivity2"
                     app:layout_constraintTop_toBottomOf="@+id/imageAmMentor1"
-                    tools:src="@color/colorPrimaryDark" />
+                    tools:src="@drawable/ic_face" />
+
+                <TextView
+                    android:id="@+id/textAmMentor2Amount"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/font_size_large"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageAmMentor2"
+                    app:layout_constraintEnd_toEndOf="@+id/imageAmMentor2"
+                    app:layout_constraintStart_toStartOf="@+id/imageAmMentor2"
+                    app:layout_constraintTop_toTopOf="@+id/imageAmMentor2"
+                    tools:text="2" />
 
                 <View
                     android:id="@+id/divider2"
@@ -244,7 +277,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imagePmActivity1"
                     tools:text="textPmActivity1" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/imagePmMentor1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -256,7 +289,23 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textPmActivity1"
                     app:layout_constraintTop_toBottomOf="@+id/divider3"
-                    tools:src="@color/colorPrimaryDark" />
+                    tools:src="@drawable/ic_face" />
+
+                <TextView
+                    android:id="@+id/textPmMentor1Amount"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/font_size_large"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/imagePmMentor1"
+                    app:layout_constraintEnd_toEndOf="@+id/imagePmMentor1"
+                    app:layout_constraintStart_toStartOf="@+id/imagePmMentor1"
+                    app:layout_constraintTop_toTopOf="@+id/imagePmMentor1"
+                    tools:text="2" />
 
                 <ImageView
                     android:id="@+id/imagePmActivity2"
@@ -284,7 +333,7 @@
                     app:layout_constraintTop_toTopOf="@+id/imagePmActivity2"
                     tools:text="textPmActivity2" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/imagePmMentor2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -296,7 +345,23 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/textPmActivity2"
                     app:layout_constraintTop_toBottomOf="@+id/imagePmMentor1"
-                    tools:src="@color/colorPrimaryDark" />
+                    tools:src="@drawable/ic_face" />
+
+                <TextView
+                    android:id="@+id/textPmMentor2Amount"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/font_size_large"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/imagePmMentor2"
+                    app:layout_constraintEnd_toEndOf="@+id/imagePmMentor2"
+                    app:layout_constraintStart_toStartOf="@+id/imagePmMentor2"
+                    app:layout_constraintTop_toTopOf="@+id/imagePmMentor2"
+                    tools:text="2" />
 
                 <View
                     android:id="@+id/divider4"
