@@ -37,5 +37,7 @@ data class Workday(
     @field:Json(name = "eveningBusses")
     val eveningBusses: MutableList<BusUnit>,
     @field:Json(name = "holiday")
-    val isHoliday: Boolean? = false
+    val isHoliday: Boolean? = false,
+    @field:Json(name = "comments")
+    val comments: MutableList<Comment>
 ) : Parcelable
