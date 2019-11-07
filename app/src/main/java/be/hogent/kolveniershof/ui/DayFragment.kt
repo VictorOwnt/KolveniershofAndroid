@@ -233,6 +233,7 @@ class DayFragment : Fragment() {
 
     private fun showActivity(view: View, activityUnits: Array<ActivityUnit?>, isAm: Boolean) {
         if (isAm) {
+            // Fill am activities
             imageAmActivity1 = view.findViewById(R.id.imageAmActivity1)
             textAmActivity1 = view.findViewById(R.id.textAmActivity1)
             imageAmMentor1 = view.findViewById(R.id.imageAmMentor1)
@@ -240,20 +241,27 @@ class DayFragment : Fragment() {
             textAmActivity2 = view.findViewById(R.id.textAmActivity2)
             imageAmMentor2 = view.findViewById(R.id.imageAmMentor2)
             divider2 = view.findViewById(R.id.divider2)
+
             if (!activityUnits.isNullOrEmpty()) {
+                // Activity image
                 imageAmActivity1.setImageResource(getActivityImage(activityUnits[0]!!.getImageName()))
+                // Activity name
                 textAmActivity1.text = activityUnits[0].toString()
                 // TODO - mentor
                 if (activityUnits.size > 1) {
+                    // Activity image
                     imageAmActivity2.setImageResource(getActivityImage(activityUnits[1]!!.getImageName()))
+                    // Activity name
                     textAmActivity2.text = activityUnits[1].toString()
                     // TODO - mentor
                 } else {
+                    // Hide items for am activity 2
                     imageAmActivity2.visibility = View.GONE
                     textAmActivity2.visibility = View.GONE
                     imageAmMentor2.visibility = View.GONE
                 }
             } else {
+                // Hide items for am activities
                 imageAmActivity1.visibility = View.GONE
                 textAmActivity1.visibility = View.GONE
                 imageAmMentor1.visibility = View.GONE
@@ -263,6 +271,7 @@ class DayFragment : Fragment() {
                 divider2.visibility = View.GONE
             }
         } else {
+            // Fill pm activities
             imagePmActivity1 = view.findViewById(R.id.imagePmActivity1)
             textPmActivity1 = view.findViewById(R.id.textPmActivity1)
             imagePmMentor1 = view.findViewById(R.id.imagePmMentor1)
@@ -271,19 +280,25 @@ class DayFragment : Fragment() {
             imagePmMentor2 = view.findViewById(R.id.imagePmMentor2)
             divider4 = view.findViewById(R.id.divider4)
             if (!activityUnits.isNullOrEmpty()) {
+                // Activity image
                 imagePmActivity1.setImageResource(getActivityImage(activityUnits[0]!!.getImageName()))
+                // Activity name
                 textPmActivity1.text = activityUnits[0].toString()
                 // TODO - mentor
                 if (activityUnits.size > 1) {
+                    // Activity image
                     imagePmActivity2.setImageResource(getActivityImage(activityUnits[1]!!.getImageName()))
+                    // Activity name
                     textPmActivity2.text = activityUnits[1].toString()
                     // TODO - mentor
                 } else {
+                    // Hide items for pm activity 2
                     imagePmActivity2.visibility = View.GONE
                     textPmActivity2.visibility = View.GONE
                     imagePmMentor2.visibility = View.GONE
                 }
             } else {
+                // Hide items for pm activities
                 imagePmActivity1.visibility = View.GONE
                 textPmActivity1.visibility = View.GONE
                 imagePmMentor1.visibility = View.GONE
@@ -296,13 +311,17 @@ class DayFragment : Fragment() {
     }
 
     private fun showLunch(view: View, lunchUnit: LunchUnit?) {
+        // Fill lunch
         imageLunch = view.findViewById(R.id.imageLunch)
         textLunch = view.findViewById(R.id.textLunch)
         divider3 = view.findViewById(R.id.divider3)
         if (lunchUnit != null) {
+            // Lunch image
             imageLunch.setImageResource(R.drawable.ic_restaurant)
+            // Lunch name
             textLunch.text = lunchUnit.lunch
         } else {
+            // Hide items for lunch
             imageLunch.visibility = View.GONE
             textLunch.visibility = View.GONE
             divider3.visibility = View.GONE
