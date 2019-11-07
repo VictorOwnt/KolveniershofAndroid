@@ -19,4 +19,8 @@ data class Group(
     val name: String,
     @field:Json(name = "members")
     val members: MutableList<User>
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String {
+        return name.trim().capitalize()
+    }
+}

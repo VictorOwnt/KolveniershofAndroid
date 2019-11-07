@@ -9,55 +9,23 @@ import com.orhanobut.logger.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 import javax.inject.Inject
 
+class DayViewModel : BaseViewModel() {
 
-class DayViewModel : BaseViewModel()
-{
     val workdays = MutableLiveData<List<Workday>>()
     val workday = MutableLiveData<Workday>()
     val loadingVisibility = MutableLiveData<Int>()
     val objectVisibility = MutableLiveData<Int>()
-
 
     @Inject
     lateinit var kolvApi: KolvApi
     private var disposables = CompositeDisposable()
 
     init {
-        /*disposables.add(
-            kolvApi.getWorkdays(authToken)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onRetrieveStart() }
-                .doOnTerminate { onRetrieveFinish() }
-                .subscribe(
-                    { results -> onRetrieveListSuccess(results) },
-                    { error -> onRetrieveError(error) }
-                )
-        )*/
-    }
-
-    /*fun refresh() {
-        disposables.clear()
-        disposables.add(
-            kolvApi.getWorkdays()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onRetrieveStart() }
-                .doOnTerminate { onRetrieveFinish() }
-                .subscribe(
-                    { results -> onRetrieveListSuccess(results) },
-                    { error -> onRetrieveError(error) }
-                )
-        )
-    }*/
-
-    private fun onRetrieveListSuccess(results: List<Workday>) {
-        workdays.value = results
-        Logger.i(results.toString())
+        objectVisibility.value = View.VISIBLE
+        loadingVisibility.value = View.GONE
     }
 
     fun getWorkdayById(authToken: String, id: String) {
@@ -88,8 +56,19 @@ class DayViewModel : BaseViewModel()
         )
     }
 
-    private fun onRetrieveError(error: Throwable) {
-        Logger.e(error.message!!)
+    fun getWorkdayByDateByUserSync(authToken: String, date: String, userId: String): Workday? {
+        var workday: Workday? = null
+        try {
+            onRetrieveStart()
+            workday = kolvApi.getWorkdayByDateByUser(authToken, date, userId)
+                .doOnError { error -> onRetrieveError(error) }
+                .blockingSingle()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            onRetrieveFinish()
+        }
+        return workday
     }
 
     private fun onRetrieveSingleSuccess(result: Workday) {
@@ -97,13 +76,30 @@ class DayViewModel : BaseViewModel()
         Logger.i(result.toString())
     }
 
-    private fun onRetrieveFinish() {
-        loadingVisibility.value = View.GONE
-        objectVisibility.value = View.VISIBLE
+    private fun onRetrieveListSuccess(results: List<Workday>) {
+        workdays.value = results
+        Logger.i(results.toString())
+    }
+
+    private fun onRetrieveError(error: Throwable) {
+        Logger.e(error.message!!)
     }
 
     private fun onRetrieveStart() {
         loadingVisibility.value = View.VISIBLE
         objectVisibility.value = View.GONE
+    }
+
+    private fun onRetrieveFinish() {
+        loadingVisibility.value = View.GONE
+        objectVisibility.value = View.VISIBLE
+    }
+
+    /**
+     * Disposes the subscription when the [BaseViewModel] is no longer used.
+     */
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
     }
 }

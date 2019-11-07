@@ -17,8 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import be.hogent.kolveniershof.GlideApp
 import be.hogent.kolveniershof.R
+import be.hogent.kolveniershof.util.GlideApp
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageException

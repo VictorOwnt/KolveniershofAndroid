@@ -22,4 +22,8 @@ data class LunchUnit(
     val mentors: MutableList<User>,
     @field:Json(name = "clients")
     val clients: MutableList<User>
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String {
+        return lunch.trim().capitalize()
+    }
+}

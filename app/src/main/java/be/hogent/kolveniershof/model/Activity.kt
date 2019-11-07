@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
  *
  * @property id
  * @property name
- * @property iconUrl
+ * @property icon
  */
 @Parcelize
 data class Activity(
@@ -18,5 +18,9 @@ data class Activity(
     @field:Json(name  = "name")
     val name: String,
     @field:Json(name = "icon")
-    val iconUrl: String
-) : Parcelable
+    val icon: String
+) : Parcelable {
+    override fun toString(): String {
+        return name.trim().capitalize()
+    }
+}

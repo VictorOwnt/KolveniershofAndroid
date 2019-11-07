@@ -35,7 +35,23 @@ data class Workday(
     @field:Json(name = "pmActivities")
     val pmActivities: MutableList<ActivityUnit>,
     @field:Json(name = "eveningBusses")
-    val eveningBusses: MutableList<Bus>,
+    val eveningBusses: MutableList<BusUnit>,
     @field:Json(name = "holiday")
-    val isHoliday: Boolean? = false
+    val isHoliday: Boolean? = false,
+    @field:Json(name = "comments")
+    val comments: MutableList<Comment>
 ) : Parcelable
+
+@Parcelize
+data class Comment(
+    @field:Json(name = "_id")
+    val id: String,
+    @field:Json(name = "comment")
+    val comment: String,
+    @field:Json(name = "user")
+    val user: User
+) : Parcelable {
+    override fun toString(): String {
+        return comment.trim()
+    }
+}

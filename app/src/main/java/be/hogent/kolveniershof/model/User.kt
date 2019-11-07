@@ -38,4 +38,8 @@ data class User(
     val imgUrl: String? = null,
     @field:Json(name = "token")
     val token: String? = null
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String {
+        return "$firstName $lastName"
+    }
+}

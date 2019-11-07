@@ -22,4 +22,11 @@ data class ActivityUnit(
     val mentors: MutableList<User>,
     @field:Json(name = "clients")
     val clients: MutableList<User>
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String {
+        return activity.toString()
+    }
+    fun getImageName(): String {
+        return activity.icon
+    }
+}

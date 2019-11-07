@@ -4,17 +4,17 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import be.hogent.kolveniershof.R
+import be.hogent.kolveniershof.databinding.FragmentDateSelectorBinding
+import be.hogent.kolveniershof.viewmodels.DayViewModel
 import org.joda.time.DateTime
-import java.lang.IllegalArgumentException
 
 
 // Number of pages in ViewPager (8 weeks total)
@@ -35,6 +35,7 @@ class DateSelectorFragment : Fragment() {
             }
     }
 
+    private lateinit var viewModel: DayViewModel
     private lateinit var sharedPrefs: SharedPreferences
     private lateinit var mPager: ViewPager
     private lateinit var dateSelectorMinusTwo: DateButton
@@ -48,8 +49,13 @@ class DateSelectorFragment : Fragment() {
         arguments?.let {
             workdayDate = DateTime.parse(it.getString(ARG_WORKDAY_DATE))
         }
-        // initialize shared preferences
+
+        // Initialize shared preferences
         sharedPrefs = activity!!.getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
+
+        // Instantiate viewModel
+        viewModel = ViewModelProviders.of(this).get(DayViewModel::class.java)
+
         setHasOptionsMenu(true)
     }
 
@@ -58,7 +64,11 @@ class DateSelectorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_date_selector, container, false)
+        val binding: FragmentDateSelectorBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_date_selector, container, false)
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = this.viewLifecycleOwner
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
