@@ -157,11 +157,23 @@ class DayFragment : Fragment() {
                 isWeekend!! -> showWeekend(view, workday.comments[0].toString()) // todo
                 workday.isHoliday!! -> showEmptyDay(view, true)
                 else -> {
-                    showBus(view, workday.morningBusses[0], true)
-                    showActivity(view, workday.amActivities.toTypedArray(), true)
+                    if (workday.morningBusses.isNullOrEmpty())
+                        showBus(view, null, true)
+                    else
+                        showBus(view, workday.morningBusses[0], true)
+                    if (workday.amActivities.isNullOrEmpty())
+                        showActivity(view, null, true)
+                    else
+                        showActivity(view, workday.amActivities.toTypedArray(), true)
                     showLunch(view, workday.lunch)
-                    showActivity(view, workday.pmActivities.toTypedArray(), false)
-                    showBus(view, workday.eveningBusses[0], false)
+                    if (workday.pmActivities.isNullOrEmpty())
+                        showActivity(view, null, false)
+                    else
+                        showActivity(view, workday.pmActivities.toTypedArray(), false)
+                    if (workday.eveningBusses.isNullOrEmpty())
+                        showBus(view, null, false)
+                    else
+                        showBus(view, workday.eveningBusses[0], false)
                 }
             }
         })
@@ -214,6 +226,7 @@ class DayFragment : Fragment() {
         if (isMorning) {
             imageMorningBus = view.findViewById(R.id.imageMorningBus)
             imageMorningCoffee = view.findViewById(R.id.imageMorningCoffee)
+            divider3 = view.findViewById(R.id.divider3)
             divider4 = view.findViewById(R.id.divider4)
             if (busUnit != null) {
                 imageMorningBus.setImageResource(R.drawable.ic_menu_bus)
@@ -229,12 +242,15 @@ class DayFragment : Fragment() {
                 imageEveningBus.setColorFilter(Color.parseColor(busUnit.bus.color))
             } else {
                 imageEveningBus.visibility = View.GONE
-                divider4.visibility = View.GONE
+                if (divider4.visibility == View.GONE)
+                    divider3.visibility = View.GONE
+                else
+                    divider4.visibility = View.GONE
             }
         }
     }
 
-    private fun showActivity(view: View, activityUnits: Array<ActivityUnit?>, isAm: Boolean) {
+    private fun showActivity(view: View, activityUnits: Array<ActivityUnit>?, isAm: Boolean) {
         if (isAm) {
             // Fill am activities
             imageAmActivity1 = view.findViewById(R.id.imageAmActivity1)
@@ -249,7 +265,7 @@ class DayFragment : Fragment() {
 
             if (!activityUnits.isNullOrEmpty()) {
                 // Activity image
-                imageAmActivity1.setImageResource(getActivityImage(activityUnits[0]!!.getImageName()))
+                imageAmActivity1.setImageResource(getActivityImage(activityUnits[0].getImageName()))
                 // Activity name
                 textAmActivity1.text = activityUnits[0].toString()
                 loadMentorImage(activityUnits[0]!!.mentors.toTypedArray(), imageAmMentor1, textAmMentor1Amount)
@@ -258,11 +274,11 @@ class DayFragment : Fragment() {
 
                 if (activityUnits.size > 1) {
                     // Activity image
-                    imageAmActivity2.setImageResource(getActivityImage(activityUnits[1]!!.getImageName()))
+                    imageAmActivity2.setImageResource(getActivityImage(activityUnits[1].getImageName()))
                     // Activity name
                     textAmActivity2.text = activityUnits[1].toString()
                     // Mentor image
-                    loadMentorImage(activityUnits[1]!!.mentors.toTypedArray(), imageAmMentor2, textAmMentor2Amount)
+                    loadMentorImage(activityUnits[1].mentors.toTypedArray(), imageAmMentor2, textAmMentor2Amount)
                 } else {
                     // Hide items for am activity 2
                     imageAmActivity2.visibility = View.GONE
@@ -292,18 +308,18 @@ class DayFragment : Fragment() {
             divider4 = view.findViewById(R.id.divider4)
             if (!activityUnits.isNullOrEmpty()) {
                 // Activity image
-                imagePmActivity1.setImageResource(getActivityImage(activityUnits[0]!!.getImageName()))
+                imagePmActivity1.setImageResource(getActivityImage(activityUnits[0].getImageName()))
                 // Activity name
                 textPmActivity1.text = activityUnits[0].toString()
                 // Mentor image
-                loadMentorImage(activityUnits[0]!!.mentors.toTypedArray(), imagePmMentor1, textPmMentor1Amount)
+                loadMentorImage(activityUnits[0].mentors.toTypedArray(), imagePmMentor1, textPmMentor1Amount)
                 if (activityUnits.size > 1) {
                     // Activity image
-                    imagePmActivity2.setImageResource(getActivityImage(activityUnits[1]!!.getImageName()))
+                    imagePmActivity2.setImageResource(getActivityImage(activityUnits[1].getImageName()))
                     // Activity name
                     textPmActivity2.text = activityUnits[1].toString()
                     // Mentor image
-                    loadMentorImage(activityUnits[1]!!.mentors.toTypedArray(), imagePmMentor2, textPmMentor2Amount)
+                    loadMentorImage(activityUnits[1].mentors.toTypedArray(), imagePmMentor2, textPmMentor2Amount)
                 } else {
                     // Hide items for pm activity 2
                     imagePmActivity2.visibility = View.GONE

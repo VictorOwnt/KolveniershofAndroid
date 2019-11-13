@@ -23,7 +23,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false">
+                android:clipToPadding="false"
+                android:paddingBottom="16dp">
 
                 <LinearLayout
                     android:id="@+id/dayNameHeader"
@@ -95,7 +96,7 @@
                     android:background="@color/colorDivider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageMorningBus" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageMorningCoffee" />
 
                 <ImageView
                     android:id="@+id/imageAmActivity1"
@@ -194,8 +195,8 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="@dimen/font_size_large"
                     android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/font_size_large"
                     android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/imageAmMentor2"
@@ -297,8 +298,8 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="@dimen/font_size_large"
                     android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/font_size_large"
                     android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/imagePmMentor1"
@@ -353,8 +354,8 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:textSize="@dimen/font_size_large"
                     android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/font_size_large"
                     android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/imagePmMentor2"
@@ -381,7 +382,6 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
                     android:contentDescription="@string/activity_icon_content_description"
                     android:tint="@color/colorPrimaryDark"
                     app:layout_constraintBottom_toBottomOf="parent"
