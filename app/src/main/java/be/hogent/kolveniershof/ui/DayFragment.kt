@@ -358,17 +358,17 @@ class DayFragment : Fragment() {
     }
 
     private fun getActivityImage(imageName: String) : Int {
-        return resources.getIdentifier("ic_activity_$imageName", "drawable", activity!!.packageName)
+        return resources.getIdentifier("ic_activity_${imageName.replace("-", "_")}", "drawable", activity!!.packageName)
     }
 
     private fun loadMentorImage(mentors: Array<User>, imageView: ImageView, textView: TextView) {
         // Set image
-        val imgUrl = mentors[0].imgUrl!!
+        val imgUrl = mentors[0].imgUrl
         val mentorImg = try {
-            FirebaseStorage.getInstance().reference.child(imgUrl)
+            FirebaseStorage.getInstance().reference.child(imgUrl!!)
         } catch (e: Exception) {
             when(e) {
-                is StorageException, is IllegalArgumentException -> null
+                is StorageException, is IllegalArgumentException, is KotlinNullPointerException -> null
                 else -> throw e
             }
         }
