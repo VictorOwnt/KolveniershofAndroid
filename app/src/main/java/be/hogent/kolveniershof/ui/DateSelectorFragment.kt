@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -37,13 +39,17 @@ class DateSelectorFragment : Fragment() {
 
     private lateinit var viewModel: DayViewModel
     private lateinit var sharedPrefs: SharedPreferences
+    // Phone mode
     private lateinit var mPager: ViewPager
     private lateinit var dateSelectorMinusTwo: DateButton
     private lateinit var dateSelectorMinusOne: DateButton
     private lateinit var dateSelectorNow: DateButton
     private lateinit var dateSelectorPlusOne: DateButton
     private lateinit var dateSelectorPlusTwo: DateButton
-    // TODO - views from tablet dateselector fragment
+    // Tablet mode
+    private lateinit var previousButton: Button
+    private lateinit var weekText: TextView
+    private lateinit var nextButton: Button
 
     /**
      * Whether or not the activity is in tablet mode.
@@ -104,8 +110,7 @@ class DateSelectorFragment : Fragment() {
                     position: Int,
                     positionOffset: Float,
                     positionOffsetPixels: Int
-                ) {
-                }
+                ) {}
 
                 override fun onPageSelected(position: Int) {
                     val date = workdayDate!!.minusDays(29 - position)
@@ -135,8 +140,53 @@ class DateSelectorFragment : Fragment() {
                 mPager.arrowScroll(View.FOCUS_RIGHT)
             }
         } else {
-            // TODO - Load tablet dateselector
+            previousButton = view.findViewById(R.id.buttonPreviousWeek)
+            weekText = view.findViewById(R.id.textWeekNumber)
+            nextButton = view.findViewById(R.id.buttonNextWeek)
+
+            var date = DateTime.now()
+            // Load all day views
+            loadWeek(date)
+
+            // OnClickListeners buttons
+            previousButton.setOnClickListener {
+                date = date.minusDays(7)
+                loadWeek(date)
+            }
+            nextButton.setOnClickListener {
+                date = date.plusDays(7)
+                loadWeek(date)
+            }
         }
+    }
+
+    private fun loadWeek(date: DateTime) {
+        // Get days of week
+        val monday = date.minusDays(date.dayOfWeek-1)
+        val tuesday = monday.plusDays(1)
+        val wednesday = tuesday.plusDays(1)
+        val thursday = wednesday.plusDays(1)
+        val friday = thursday.plusDays(1)
+        val saturday = friday.plusDays(1)
+        val sunday = saturday.plusDays(1)
+
+        // Load DayFragments
+        fragmentManager!!.beginTransaction().apply {
+            replace(R.id.day_monday, DayFragment.newInstance(monday))
+            replace(R.id.day_tuesday, DayFragment.newInstance(tuesday))
+            replace(R.id.day_wednesday, DayFragment.newInstance(wednesday))
+            replace(R.id.day_thursday, DayFragment.newInstance(thursday))
+            replace(R.id.day_friday, DayFragment.newInstance(friday))
+            //replace(R.id.day_saturday, DayFragment.newInstance(saturday)) TODO
+            //replace(R.id.day_sunday, DayFragment.newInstance(sunday)) TODO
+        }.commit()
+
+        // Week text
+        weekText.text = getString(
+            R.string.dates_interval,
+            if (monday.monthOfYear == sunday.monthOfYear) { monday.toString("d") } else { monday.toString("d MMMM") },
+            sunday.toString("d MMMM")
+        )
     }
 
     private inner class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
