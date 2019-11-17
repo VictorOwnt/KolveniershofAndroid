@@ -71,6 +71,20 @@ class DayViewModel : BaseViewModel() {
         return workday
     }
 
+    fun getWeekByDateByUser(authToken: String, date: String, userId: String) {
+        disposables.add(
+            kolvApi.getWeekByDateByUser(authToken, date, userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { onRetrieveStart() }
+                .doOnTerminate { onRetrieveFinish() }
+                .subscribe(
+                    { result -> onRetrieveListSuccess(result) },
+                    { error -> onRetrieveError(error) }
+                )
+        )
+    }
+
     private fun onRetrieveSingleSuccess(result: Workday) {
         workday.value = result
         Logger.i(result.toString())

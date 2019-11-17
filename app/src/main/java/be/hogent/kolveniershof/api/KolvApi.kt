@@ -80,4 +80,15 @@ interface KolvApi {
     @GET("workdays/date/{date}/{user}")
     fun getWorkdayByDateByUser(@Header("Authorization") authToken: String, @Path("date") dateString: String, @Path("user") userId: String) : Observable<Workday>
 
+    /**
+     * Gets week of workdays by date in week by user
+     *
+     * @param authToken
+     * @param dateString
+     * @param userId
+     * @return
+     */
+    @GET("workdays/week/{weekdate}/{user}")
+    fun getWeekByDateByUser(@Header("Authorization") authToken: String, @Path("weekdate") dateString: String, @Path("user") userId: String) : Observable<List<Workday>>
+
 }
