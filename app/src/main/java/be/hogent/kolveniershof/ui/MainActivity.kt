@@ -33,9 +33,9 @@ class MainActivity :
     NavigationView.OnNavigationItemSelectedListener {
 
     /**
-     * Whether or not the activity is in tablet mode.
+     * Whether or not the activity is in two pane mode.
      */
-    private var tablet: Boolean = false
+    private var twoPane: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +52,11 @@ class MainActivity :
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        // The detail container view will be present only in the large-screen layouts (res/values-w900dp).
+        // If this view is present, then the activity should be in two-pane mode.
+        if (main_detail_container != null && !sharedPreferences.getBoolean("ADMIN", false))
+            twoPane = true
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -97,11 +102,6 @@ class MainActivity :
             navView.menu.findItem(R.id.nav_calendar).isChecked = true
             navView.menu.performIdentifierAction(R.id.nav_calendar, 0)
         }
-
-        // The detail container view will be present only in the large-screen layouts (res/values-w900dp).
-        // If this view is present, then the activity should be in two-pane mode.
-        if (main_detail_container != null)
-            tablet = true
 
         // Set logger
         Logger.addLogAdapter(AndroidLogAdapter())
@@ -154,8 +154,7 @@ class MainActivity :
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         // Handle navigation view item clicks.
         when (item.itemId) {
-            R.id.nav_calendar -> openDetailFragment(DateSelectorFragment.newInstance(DateTime.now())) // todo
-            //R.id.nav_busses -> openDetailFragment(BUSSES) // todo
+            R.id.nav_calendar -> openDetailFragment(DateSelectorFragment.newInstance(DateTime.now()))
             R.id.nav_logout -> {
                 // Logout
                 val sharedPref = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
@@ -171,16 +170,8 @@ class MainActivity :
         return true
     }
 
-    /*override fun onListFragmentInteraction(itemKindId: Int, itemId: String?) {
-        when (itemKindId) {
-            R.id.nav_speedCamera -> openDetailFragment(SpeedCameraFragment.newInstance(itemId))
-            R.id.nav_avgSpeedCheck -> openDetailFragment(AvgSpeedCheckFragment.newInstance(itemId))
-            R.id.nav_policeCheck -> openDetailFragment(PoliceCheckFragment.newInstance(itemId))
-        }
-    }*/
-
     private fun openDetailFragment(newFragment: Fragment) {
-        if (tablet) {
+        if (twoPane) {
             this.supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_detail_container, newFragment)

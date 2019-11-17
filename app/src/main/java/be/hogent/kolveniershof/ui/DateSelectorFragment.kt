@@ -14,8 +14,8 @@ import androidx.viewpager.widget.ViewPager
 import be.hogent.kolveniershof.R
 import be.hogent.kolveniershof.databinding.FragmentDateSelectorBinding
 import be.hogent.kolveniershof.viewmodels.DayViewModel
+import kotlinx.android.synthetic.main.content_main.*
 import org.joda.time.DateTime
-
 
 // Number of pages in ViewPager (8 weeks total)
 private const val NUM_PAGES = 56
@@ -43,6 +43,12 @@ class DateSelectorFragment : Fragment() {
     private lateinit var dateSelectorNow: DateButton
     private lateinit var dateSelectorPlusOne: DateButton
     private lateinit var dateSelectorPlusTwo: DateButton
+    // TODO - views from tablet dateselector fragment
+
+    /**
+     * Whether or not the activity is in tablet mode.
+     */
+    private var tablet: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +63,11 @@ class DateSelectorFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(DayViewModel::class.java)
 
         setHasOptionsMenu(true)
+
+        // The detail container view will be present only in the large-screen layouts (res/values-w900dp).
+        // If this view is present, then the fragment should be in tablet mode.
+        if (activity!!.main_detail_container != null)
+            tablet = true
     }
 
     override fun onCreateView(
@@ -74,47 +85,57 @@ class DateSelectorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dateSelectorMinusTwo = view.findViewById(R.id.dateSelectorMinusTwo)
-        dateSelectorMinusOne = view.findViewById(R.id.dateSelectorMinusOne)
-        dateSelectorNow = view.findViewById(R.id.dateSelectorNow)
-        dateSelectorPlusOne = view.findViewById(R.id.dateSelectorPlusOne)
-        dateSelectorPlusTwo = view.findViewById(R.id.dateSelectorPlusTwo)
+        if (!tablet) {
+            dateSelectorMinusTwo = view.findViewById(R.id.dateSelectorMinusTwo)
+            dateSelectorMinusOne = view.findViewById(R.id.dateSelectorMinusOne)
+            dateSelectorNow = view.findViewById(R.id.dateSelectorNow)
+            dateSelectorPlusOne = view.findViewById(R.id.dateSelectorPlusOne)
+            dateSelectorPlusTwo = view.findViewById(R.id.dateSelectorPlusTwo)
 
-        // Instantiate a ViewPager and a PagerAdapter.
-        mPager = view.findViewById(R.id.pager)
+            // Instantiate a ViewPager and a PagerAdapter.
+            mPager = view.findViewById(R.id.pager)
 
-        // The pager adapter, which provides the pages to the view pager widget.
-        val pagerAdapter = PagerAdapter(childFragmentManager)
-        mPager.adapter = pagerAdapter
-        mPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {}
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-            override fun onPageSelected(position: Int) {
-                val date = workdayDate!!.minusDays(29 - position)
-                // Shows correct dates in buttons
-                dateSelectorMinusTwo.setDate(date.minusDays(2))
-                dateSelectorMinusOne.setDate(date.minusDays(1))
-                dateSelectorNow.setDate(date)
-                dateSelectorPlusOne.setDate(date.plusDays(1))
-                dateSelectorPlusTwo.setDate(date.plusDays(2))
+            // The pager adapter, which provides the pages to the view pager widget.
+            val pagerAdapter = PagerAdapter(childFragmentManager)
+            mPager.adapter = pagerAdapter
+            mPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) {}
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    val date = workdayDate!!.minusDays(29 - position)
+                    // Shows correct dates in buttons
+                    dateSelectorMinusTwo.setDate(date.minusDays(2))
+                    dateSelectorMinusOne.setDate(date.minusDays(1))
+                    dateSelectorNow.setDate(date)
+                    dateSelectorPlusOne.setDate(date.plusDays(1))
+                    dateSelectorPlusTwo.setDate(date.plusDays(2))
+                }
+            })
+            mPager.currentItem = 29
+
+            // OnClickListeners buttons
+            dateSelectorMinusTwo.setOnClickListener {
+                mPager.arrowScroll(View.FOCUS_LEFT)
+                mPager.arrowScroll(View.FOCUS_LEFT)
             }
-        })
-        mPager.currentItem = 29
-
-        // OnClickListeners buttons
-        dateSelectorMinusTwo.setOnClickListener {
-            mPager.arrowScroll(View.FOCUS_LEFT)
-            mPager.arrowScroll(View.FOCUS_LEFT)
-        }
-        dateSelectorMinusOne.setOnClickListener {
-            mPager.arrowScroll(View.FOCUS_LEFT)
-        }
-        dateSelectorPlusOne.setOnClickListener {
-            mPager.arrowScroll(View.FOCUS_RIGHT)
-        }
-        dateSelectorPlusTwo.setOnClickListener {
-            mPager.arrowScroll(View.FOCUS_RIGHT)
-            mPager.arrowScroll(View.FOCUS_RIGHT)
+            dateSelectorMinusOne.setOnClickListener {
+                mPager.arrowScroll(View.FOCUS_LEFT)
+            }
+            dateSelectorPlusOne.setOnClickListener {
+                mPager.arrowScroll(View.FOCUS_RIGHT)
+            }
+            dateSelectorPlusTwo.setOnClickListener {
+                mPager.arrowScroll(View.FOCUS_RIGHT)
+                mPager.arrowScroll(View.FOCUS_RIGHT)
+            }
+        } else {
+            // TODO - Load tablet dateselector
         }
     }
 
@@ -143,12 +164,9 @@ class DateSelectorFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
-        mPager.adapter = null
+        if (!tablet)
+            mPager.adapter = null
         super.onSaveInstanceState(savedInstanceState)
     }
 
