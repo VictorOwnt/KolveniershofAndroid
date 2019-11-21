@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.*
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,6 +18,7 @@ import androidx.viewpager.widget.ViewPager
 import be.hogent.kolveniershof.R
 import be.hogent.kolveniershof.databinding.FragmentDateSelectorBinding
 import be.hogent.kolveniershof.viewmodels.DayViewModel
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.joda.time.DateTime
 
@@ -157,6 +160,7 @@ class DateSelectorFragment : Fragment() {
                 date = date.plusDays(7)
                 loadWeek(date)
             }
+
         }
     }
 
@@ -177,8 +181,8 @@ class DateSelectorFragment : Fragment() {
             replace(R.id.day_wednesday, DayFragment.newInstance(wednesday))
             replace(R.id.day_thursday, DayFragment.newInstance(thursday))
             replace(R.id.day_friday, DayFragment.newInstance(friday))
-            //replace(R.id.day_saturday, DayFragment.newInstance(saturday)) TODO
-            //replace(R.id.day_sunday, DayFragment.newInstance(sunday)) TODO
+            replace(R.id.day_saturday, DayFragment.newInstance(saturday))
+            replace(R.id.day_sunday, DayFragment.newInstance(sunday))
         }.commit()
 
         // Week text

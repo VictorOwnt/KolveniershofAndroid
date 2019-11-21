@@ -1,5 +1,6 @@
 package be.hogent.kolveniershof.api
 
+import be.hogent.kolveniershof.model.Comment
 import be.hogent.kolveniershof.model.User
 import be.hogent.kolveniershof.model.Workday
 import io.reactivex.Observable
@@ -90,5 +91,24 @@ interface KolvApi {
      */
     @GET("workdays/week/{weekdate}/{user}")
     fun getWeekByDateByUser(@Header("Authorization") authToken: String, @Path("weekdate") dateString: String, @Path("user") userId: String) : Observable<List<Workday>>
+
+    /**
+     * Gets week of workdays by date in week by user
+     *
+     * @param authToken
+     * @param workdayId
+     * @param comment
+     *
+     */
+    @FormUrlEncoded
+    @POST("workdays/id/{workdayId}/comments")
+    fun postComment(
+        @Header("Authorization") authToken: String,
+        @Path("workdayId") workdayId: String,
+        @Field("comment") comment: String,
+        @Field("workday") workday: Workday,
+        @Field("user") user: User
+    ): Single<Comment>
+
 
 }

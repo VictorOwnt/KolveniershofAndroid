@@ -24,6 +24,7 @@ import be.hogent.kolveniershof.databinding.FragmentWeekendBinding
 import be.hogent.kolveniershof.model.*
 import be.hogent.kolveniershof.util.GlideApp
 import be.hogent.kolveniershof.viewmodels.DayViewModel
+import be.hogent.kolveniershof.viewmodels.UserViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageException
@@ -102,6 +103,7 @@ class DayFragment : Fragment() {
         // Instantiate viewModel
         viewModel = ViewModelProviders.of(this).get(DayViewModel::class.java)
 
+
         // Get workday
         arguments?.getString("workdayDate")?.let { viewModel.getWorkdayByDateByUser(sharedPrefs.getString("TOKEN", "")!!, it, sharedPrefs.getString("ID", "")!!) }
         viewModel.workday.removeObservers(this)
@@ -154,7 +156,7 @@ class DayFragment : Fragment() {
         if (isEmpty) showEmptyDay(view, false)
         viewModel.workday.observe(this, Observer { workday ->
             when {
-                isWeekend!! -> showWeekend(view, workday.comments[0].toString()) // todo
+                isWeekend!! -> showWeekend(view, "") // todo
                 workday.isHoliday!! -> showEmptyDay(view, true)
                 else -> {
                     if (workday.morningBusses.isNullOrEmpty())
@@ -219,6 +221,14 @@ class DayFragment : Fragment() {
         // Fill comment if present
         if (!comment.isNullOrBlank()) {
             inputComment.text = Editable.Factory.getInstance().newEditable(comment)
+        }
+        buttonSendComment.setOnClickListener {
+            viewModel.postComment(
+                sharedPrefs.getString("TOKEN", "")!!,
+                viewModel.workday.value!!.id,
+                sharedPrefs.getString("ID", "")!!,
+                inputComment.text.toString()
+            )
         }
     }
 

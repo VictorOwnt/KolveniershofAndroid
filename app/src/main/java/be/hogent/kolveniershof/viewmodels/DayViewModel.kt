@@ -1,9 +1,11 @@
 package be.hogent.kolveniershof.viewmodels
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import be.hogent.kolveniershof.api.KolvApi
 import be.hogent.kolveniershof.base.BaseViewModel
+import be.hogent.kolveniershof.model.Comment
 import be.hogent.kolveniershof.model.Workday
 import com.orhanobut.logger.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -83,6 +85,16 @@ class DayViewModel : BaseViewModel() {
                     { error -> onRetrieveError(error) }
                 )
         )
+    }
+
+    fun postComment(authToken: String, workdayId: String, userId: String, commentText: String) {
+
+        val user = kolvApi.getUserById(userId).firstOrError().blockingGet() //Anders ophalen?
+        try {
+            kolvApi.postComment(authToken, workdayId, commentText, workday.value!!, user)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun onRetrieveSingleSuccess(result: Workday) {
