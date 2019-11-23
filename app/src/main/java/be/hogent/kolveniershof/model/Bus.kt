@@ -19,9 +19,7 @@ data class Bus(
     @field:Json(name  = "name")
     val name: String,
     @field:Json(name = "color")
-    val color: String,
-    @field:Json(name = "icon")
-    val iconUrl: String
+    val color: String
 ) : Parcelable {
     override fun toString(): String {
         return name.trim().capitalize()
