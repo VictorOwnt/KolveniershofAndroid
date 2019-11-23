@@ -105,9 +105,7 @@ interface KolvApi {
     fun postComment(
         @Header("Authorization") authToken: String,
         @Path("workdayId") workdayId: String,
-        @Field("comment") comment: String,
-        @Field("workday") workday: Workday,
-        @Field("user") user: User
+        @Field("comment") comment: String
     ): Single<Comment>
 
 

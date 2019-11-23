@@ -226,8 +226,7 @@ class DayFragment : Fragment() {
             viewModel.postComment(
                 sharedPrefs.getString("TOKEN", "")!!,
                 viewModel.workday.value!!.id,
-                sharedPrefs.getString("ID", "")!!,
-                inputComment.text.toString()
+                sharedPrefs.getString("ID", "")!!
             )
         }
     }

@@ -87,11 +87,11 @@ class DayViewModel : BaseViewModel() {
         )
     }
 
-    fun postComment(authToken: String, workdayId: String, userId: String, commentText: String) {
+    fun postComment(authToken: String, workdayId: String, commentText: String) {
 
-        val user = kolvApi.getUserById(userId).firstOrError().blockingGet() //Anders ophalen?
+
         try {
-            kolvApi.postComment(authToken, workdayId, commentText, workday.value!!, user)
+            kolvApi.postComment(authToken, workdayId, commentText)
         } catch (e: Exception) {
             e.printStackTrace()
         }

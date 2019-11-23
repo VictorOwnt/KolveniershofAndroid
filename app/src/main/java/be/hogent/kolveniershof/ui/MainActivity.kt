@@ -3,11 +3,15 @@ package be.hogent.kolveniershof.ui
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -36,11 +40,12 @@ class MainActivity :
      * Whether or not the activity is in two pane mode.
      */
     private var twoPane: Boolean = false
-
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPreferences = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
 
+        
         // Check is user is logged in
         if (!sharedPreferences.getBoolean("ISLOGGEDIN", false)) {
             // Open AuthActivity
@@ -55,7 +60,7 @@ class MainActivity :
 
         // The detail container view will be present only in the large-screen layouts (res/values-w900dp).
         // If this view is present, then the activity should be in two-pane mode.
-        if (main_detail_container != null && !sharedPreferences.getBoolean("ADMIN", false))
+        if (main_detail_container != null)
             twoPane = true
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -171,13 +176,14 @@ class MainActivity :
     }
 
     private fun openDetailFragment(newFragment: Fragment) {
-        if (twoPane) {
+        if (twoPane && sharedPreferences.getBoolean("ADMIN", false)) {
             this.supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_detail_container, newFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit()
+
         } else {
             this.supportFragmentManager
                 .beginTransaction()
@@ -185,6 +191,13 @@ class MainActivity :
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit()
+            if (main_detail_container != null) {
+                main_detail_container?.visibility = View.GONE
+                main_content_container.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+                )
+            }
         }
     }
 
