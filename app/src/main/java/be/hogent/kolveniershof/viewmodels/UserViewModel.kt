@@ -6,6 +6,7 @@ import be.hogent.kolveniershof.api.KolvApi
 import be.hogent.kolveniershof.base.BaseViewModel
 import be.hogent.kolveniershof.model.User
 import com.orhanobut.logger.Logger
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -45,6 +46,19 @@ class UserViewModel : BaseViewModel() {
         } finally {
             onRetrieveFinish()
         }
+    }
+
+    fun getUsers(): Observable<List<User>> {
+        try {
+            onRetrieveStart()
+            return kolvApi.getUsers()
+
+        } catch (e: Exception) {
+            throw LoginException((e as HttpException).response()!!.errorBody()!!.string())
+        } finally {
+            onRetrieveFinish()
+        }
+
     }
 
     private fun onRetrieveError(error: Throwable) {

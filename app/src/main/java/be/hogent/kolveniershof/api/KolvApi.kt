@@ -34,6 +34,15 @@ interface KolvApi {
     fun isValidEmail(@Field("email") email: String): Single<Boolean>
 
     /**
+     * Gets all users
+     *
+     *
+     * @return list of all users
+     */
+    @GET("users/")
+    fun getUsers(): Observable<List<User>>
+
+    /**
      * Gets user by email
      *
      * @param email

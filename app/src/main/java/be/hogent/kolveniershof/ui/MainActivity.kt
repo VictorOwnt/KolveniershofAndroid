@@ -9,10 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -21,8 +18,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.transition.Transition
 import be.hogent.kolveniershof.R
+import be.hogent.kolveniershof.adapters.UserAdapter
+import be.hogent.kolveniershof.model.User
 import be.hogent.kolveniershof.util.GlideApp
+import be.hogent.kolveniershof.viewmodels.UserViewModel
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageException
@@ -31,6 +32,7 @@ import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.content_main.*
 import org.joda.time.DateTime
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity :
     AppCompatActivity(),
@@ -40,6 +42,7 @@ class MainActivity :
      * Whether or not the activity is in two pane mode.
      */
     private var twoPane: Boolean = false
+    private lateinit var userList: ListView
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,11 +61,18 @@ class MainActivity :
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+
         // The detail container view will be present only in the large-screen layouts (res/values-w900dp).
         // If this view is present, then the activity should be in two-pane mode.
-        if (main_detail_container != null)
+        if (main_detail_container != null && sharedPreferences.getBoolean("ADMIN", false)) {
             twoPane = true
+            userList = findViewById(R.id.user_list)
+            val users = UserViewModel().getUsers().blockingFirst()
+            val adapter = UserAdapter(this.applicationContext, users)
+            userList.adapter = adapter
 
+
+        }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(

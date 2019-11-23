@@ -6,9 +6,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewmodel"
-            type="be.hogent.kolveniershof.viewmodels.DayViewModel"/>
+            type="be.hogent.kolveniershof.viewmodels.DayViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

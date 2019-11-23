@@ -9,10 +9,17 @@
         tools:showIn="@layout/app_bar_main"
         tools:context=".ui.MainActivity">
 
+
     <FrameLayout
             android:id="@+id/main_content_container"
             android:layout_width="@dimen/list_width"
             android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/user_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </FrameLayout>
 
     <View
