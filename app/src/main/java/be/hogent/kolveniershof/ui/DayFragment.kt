@@ -34,20 +34,23 @@ import java.util.*
 
 private const val ARG_WORKDAY_DATE = "workdayDate"
 private const val ARG_WORKDAY_WEEKEND = "isWeekend"
+private const val ARG_USER_ID = "userId"
 
 class DayFragment : Fragment() {
 
     private var workdayDate : String? = null
     private var isWeekend: Boolean? = null
     private var isEmpty: Boolean = false
+    private var userId: String? = null
 
     companion object {
         @JvmStatic
-        fun newInstance(workdayDate: DateTime) =
+        fun newInstance(workdayDate: DateTime, userId: String?) =
             DayFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_WORKDAY_DATE, workdayDate.toString("dd_MM_yyyy"))
                     putBoolean(ARG_WORKDAY_WEEKEND, (workdayDate.dayOfWeek == 6 || workdayDate.dayOfWeek == 7))
+                    putString(ARG_USER_ID, userId)
                 }
             }
     }
@@ -95,6 +98,7 @@ class DayFragment : Fragment() {
         arguments?.let {
             workdayDate = it.getString(ARG_WORKDAY_DATE)
             isWeekend = it.getBoolean(ARG_WORKDAY_WEEKEND)
+            userId = it.getString(ARG_USER_ID)
         }
 
         // Get shared preferences
@@ -105,7 +109,13 @@ class DayFragment : Fragment() {
 
 
         // Get workday
-        arguments?.getString("workdayDate")?.let { viewModel.getWorkdayByDateByUser(sharedPrefs.getString("TOKEN", "")!!, it, sharedPrefs.getString("ID", "")!!) }
+        arguments?.getString("workdayDate")?.let {
+            viewModel.getWorkdayByDateByUser(
+                sharedPrefs.getString("TOKEN", "")!!,
+                it,
+                userId!!
+            )
+        }
         viewModel.workday.removeObservers(this)
     }
 
@@ -114,7 +124,11 @@ class DayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var root: View?
-        val workday: Workday? = viewModel.getWorkdayByDateByUserSync(sharedPrefs.getString("TOKEN", "")!!, arguments?.getString("workdayDate")!!, sharedPrefs.getString("ID", "")!!)
+        val workday: Workday? = viewModel.getWorkdayByDateByUserSync(
+            sharedPrefs.getString("TOKEN", "")!!,
+            arguments?.getString("workdayDate")!!,
+            userId!!
+        )
         when {
                 workday == null -> {
                     isEmpty = true

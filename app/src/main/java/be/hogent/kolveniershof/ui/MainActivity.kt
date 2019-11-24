@@ -18,7 +18,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.transition.Transition
 import be.hogent.kolveniershof.R
 import be.hogent.kolveniershof.adapters.UserAdapter
 import be.hogent.kolveniershof.model.User
@@ -32,7 +31,7 @@ import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.content_main.*
 import org.joda.time.DateTime
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class MainActivity :
     AppCompatActivity(),
@@ -42,7 +41,7 @@ class MainActivity :
      * Whether or not the activity is in two pane mode.
      */
     private var twoPane: Boolean = false
-    private lateinit var userList: ListView
+    private lateinit var userListView: ListView
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,11 +65,21 @@ class MainActivity :
         // If this view is present, then the activity should be in two-pane mode.
         if (main_detail_container != null && sharedPreferences.getBoolean("ADMIN", false)) {
             twoPane = true
-            userList = findViewById(R.id.user_list)
+            userListView = findViewById(R.id.user_list)
             val users = UserViewModel().getUsers().blockingFirst()
             val adapter = UserAdapter(this.applicationContext, users)
-            userList.adapter = adapter
+            userListView.adapter = adapter
+            userListView.setOnItemClickListener { parent, view, position, id ->
 
+                val user: User = parent.getItemAtPosition(position) as User
+                openDetailFragmentOfSelectedUser(
+                    DateSelectorFragment.newInstance(
+                        DateTime.now(),
+                        user.id
+                    )
+                )
+                Toast.makeText(this, user.firstName + user.lastName, Toast.LENGTH_SHORT).show()
+            }
 
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -155,7 +164,12 @@ class MainActivity :
                 val datePickerDialog = DatePickerDialog(this, R.style.DialogTheme, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                     // Change dateSelector to selected date
                     val date = DateTime(year, monthOfYear+1, dayOfMonth, 0, 0, 0)
-                    openDetailFragment(DateSelectorFragment.newInstance(date))
+                    openDetailFragment(
+                        DateSelectorFragment.newInstance(
+                            date,
+                            sharedPreferences.getString("ID", "")!!
+                        )
+                    )
                 }, y, m, d)
                 datePickerDialog.show()
             }
@@ -169,7 +183,12 @@ class MainActivity :
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         // Handle navigation view item clicks.
         when (item.itemId) {
-            R.id.nav_calendar -> openDetailFragment(DateSelectorFragment.newInstance(DateTime.now()))
+            R.id.nav_calendar -> openDetailFragment(
+                DateSelectorFragment.newInstance(
+                    DateTime.now(),
+                    sharedPreferences.getString("ID", "")!!
+                )
+            )
             R.id.nav_logout -> {
                 // Logout
                 val sharedPref = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
@@ -209,6 +228,17 @@ class MainActivity :
                 )
             }
         }
+    }
+
+    private fun openDetailFragmentOfSelectedUser(
+        newFragment: Fragment
+    ) {
+        this.supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_detail_container, newFragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .addToBackStack(null)
+            .commit()
     }
 
     fun hideKeyboard() {

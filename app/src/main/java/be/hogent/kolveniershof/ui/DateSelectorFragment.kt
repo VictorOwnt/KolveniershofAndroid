@@ -5,10 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -16,7 +13,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import be.hogent.kolveniershof.R
+import be.hogent.kolveniershof.adapters.UserViewHolder
 import be.hogent.kolveniershof.databinding.FragmentDateSelectorBinding
+import be.hogent.kolveniershof.model.User
 import be.hogent.kolveniershof.viewmodels.DayViewModel
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -25,17 +24,20 @@ import org.joda.time.DateTime
 // Number of pages in ViewPager (8 weeks total)
 private const val NUM_PAGES = 56
 private const val ARG_WORKDAY_DATE = "workdayDate"
+private const val ARG_USER_ID = "userId"
 
 class DateSelectorFragment : Fragment() {
 
     private var workdayDate: DateTime? = null
+    private var userId: String? = null
 
     companion object {
         @JvmStatic
-        fun newInstance(date: DateTime) =
+        fun newInstance(date: DateTime, userId: String?) =
             DateSelectorFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_WORKDAY_DATE, date.toString())
+                    putString(ARG_USER_ID, userId)
                 }
             }
     }
@@ -54,6 +56,7 @@ class DateSelectorFragment : Fragment() {
     private lateinit var weekText: TextView
     private lateinit var nextButton: Button
 
+
     /**
      * Whether or not the activity is in tablet mode.
      */
@@ -63,6 +66,7 @@ class DateSelectorFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             workdayDate = DateTime.parse(it.getString(ARG_WORKDAY_DATE))
+            userId = it.getString(ARG_USER_ID)
         }
 
         // Initialize shared preferences
@@ -77,6 +81,7 @@ class DateSelectorFragment : Fragment() {
         // If this view is present, then the fragment should be in tablet mode.
         if (activity!!.main_detail_container != null)
             tablet = true
+
     }
 
     override fun onCreateView(
@@ -176,13 +181,13 @@ class DateSelectorFragment : Fragment() {
 
         // Load DayFragments
         fragmentManager!!.beginTransaction().apply {
-            replace(R.id.day_monday, DayFragment.newInstance(monday))
-            replace(R.id.day_tuesday, DayFragment.newInstance(tuesday))
-            replace(R.id.day_wednesday, DayFragment.newInstance(wednesday))
-            replace(R.id.day_thursday, DayFragment.newInstance(thursday))
-            replace(R.id.day_friday, DayFragment.newInstance(friday))
-            replace(R.id.day_saturday, DayFragment.newInstance(saturday))
-            replace(R.id.day_sunday, DayFragment.newInstance(sunday))
+            replace(R.id.day_monday, DayFragment.newInstance(monday, userId))
+            replace(R.id.day_tuesday, DayFragment.newInstance(tuesday, userId))
+            replace(R.id.day_wednesday, DayFragment.newInstance(wednesday, userId))
+            replace(R.id.day_thursday, DayFragment.newInstance(thursday, userId))
+            replace(R.id.day_friday, DayFragment.newInstance(friday, userId))
+            replace(R.id.day_saturday, DayFragment.newInstance(saturday, userId))
+            replace(R.id.day_sunday, DayFragment.newInstance(sunday, userId))
         }.commit()
 
         // Week text
@@ -200,7 +205,7 @@ class DateSelectorFragment : Fragment() {
             // Gets date to show first
             val date = workdayDate!!.minusDays(29-position)
             // Loads DayFragment
-            return DayFragment.newInstance(date)
+            return DayFragment.newInstance(date, userId)
         }
     }
 
