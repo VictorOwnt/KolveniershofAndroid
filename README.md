@@ -50,9 +50,11 @@ Kolv2Android is an android app created for the Kolveniershof project. This app i
 2. Open it in your IDE, e.g.: Android studio.
 3. Let it install all the necessary dependencies.
 
-4. Copy the json above, create a new JSON file in the app folder.
-![path](./relatieve link tot locatie img vanuit deze file)
-![in path location of json file](./relatieve link tot locatie img vanuit deze file)
+4. 
+  - Copy the json above, create a new JSON file in the app folder.
+![path](./imagesReame/pathForJSON.png)
+![in path location of json file](./imagesReadme/inPathLocation.png)
+  - Paste the coppied code in that file.
 
 
 
