@@ -108,8 +108,5 @@ desktop.ini
 /captures
 .externalNativeBuild
 
-# Firebase
-google-services.json
-
 # SaveActions plugin
 .idea/saveactions_settings.xml
