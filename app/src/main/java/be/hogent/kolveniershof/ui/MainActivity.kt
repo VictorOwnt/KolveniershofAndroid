@@ -36,12 +36,17 @@ import java.util.*
 class MainActivity :
     AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener {
-
+    /*Datepicker*/
+    private val cal = Calendar.getInstance()
+    private var year = cal.get(Calendar.YEAR)
+    private var month = cal.get(Calendar.MONTH)
+    private var day = cal.get(Calendar.DAY_OF_MONTH)
+    private lateinit var clickedUser: User
     /**
      * Whether or not the activity is in two pane mode.
      */
     private var twoPane: Boolean = false
-    private lateinit var userListView: ListView
+    private lateinit var clientsListView: ListView
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,20 +70,24 @@ class MainActivity :
         // If this view is present, then the activity should be in two-pane mode.
         if (main_detail_container != null && sharedPreferences.getBoolean("ADMIN", false)) {
             twoPane = true
-            userListView = findViewById(R.id.user_list)
-            val users = UserViewModel().getUsers().blockingFirst()
-            val adapter = UserAdapter(this.applicationContext, users)
-            userListView.adapter = adapter
-            userListView.setOnItemClickListener { parent, view, position, id ->
+            clientsListView = findViewById(R.id.user_list)
+            val clients = UserViewModel().getClients().blockingFirst()
+            val adapter = UserAdapter(this.applicationContext, clients)
+            clientsListView.adapter = adapter
+            clientsListView.setOnItemClickListener { parent, view, position, id ->
 
-                val user: User = parent.getItemAtPosition(position) as User
+                clickedUser = parent.getItemAtPosition(position) as User
                 openDetailFragmentOfSelectedUser(
                     DateSelectorFragment.newInstance(
-                        DateTime.now(),
-                        user.id
+                        DateTime(year, month + 1, day, 0, 0, 0),
+                        clickedUser.id
                     )
                 )
-                Toast.makeText(this, user.firstName + user.lastName, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    clickedUser.firstName + " " + clickedUser.lastName,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         }
@@ -152,25 +161,36 @@ class MainActivity :
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button.
 
+
         when (item.itemId) {
             R.id.action_calendar -> {
                 // Get date to show
-                val cal = Calendar.getInstance()
-                val y = cal.get(Calendar.YEAR)
-                val m = cal.get(Calendar.MONTH)
-                val d = cal.get(Calendar.DAY_OF_MONTH)
+
 
                 // Show datepicker dialog
                 val datePickerDialog = DatePickerDialog(this, R.style.DialogTheme, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                     // Change dateSelector to selected date
                     val date = DateTime(year, monthOfYear+1, dayOfMonth, 0, 0, 0)
-                    openDetailFragment(
+                    this.year = year
+                    this.month = monthOfYear
+                    this.day = dayOfMonth
+                    if (::clickedUser.isInitialized) {
+                        openDetailFragment(
+                            DateSelectorFragment.newInstance(
+                                date,
+                                clickedUser.id
+                            )
+                        )
+                    } else {
+                        openDetailFragment(
                         DateSelectorFragment.newInstance(
                             date,
                             sharedPreferences.getString("ID", "")!!
                         )
-                    )
-                }, y, m, d)
+                        )
+                    }
+
+                }, year, month, day)
                 datePickerDialog.show()
             }
         }

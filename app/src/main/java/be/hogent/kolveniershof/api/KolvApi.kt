@@ -43,6 +43,14 @@ interface KolvApi {
     fun getUsers(): Observable<List<User>>
 
     /**
+     * Gets all clients
+     *
+     *
+     * @return list of all clients
+     */
+    @GET("users/clients")
+    fun getClients(): Observable<List<User>>
+    /**
      * Gets user by email
      *
      * @param email

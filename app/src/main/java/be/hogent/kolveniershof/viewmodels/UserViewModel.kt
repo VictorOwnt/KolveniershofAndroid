@@ -54,7 +54,20 @@ class UserViewModel : BaseViewModel() {
             return kolvApi.getUsers()
 
         } catch (e: Exception) {
-            throw LoginException((e as HttpException).response()!!.errorBody()!!.string())
+            throw java.lang.Exception((e as HttpException).response()!!.errorBody()!!.string())
+        } finally {
+            onRetrieveFinish()
+        }
+
+    }
+
+    fun getClients(): Observable<List<User>> {
+        try {
+            onRetrieveStart()
+            return kolvApi.getClients()
+
+        } catch (e: Exception) {
+            throw java.lang.Exception((e as HttpException).response()!!.errorBody()!!.string())
         } finally {
             onRetrieveFinish()
         }

@@ -153,6 +153,7 @@ class DateSelectorFragment : Fragment() {
             nextButton = view.findViewById(R.id.buttonNextWeek)
 
             var date = DateTime.now()
+            date = workdayDate
             // Load all day views
             loadWeek(date)
 
