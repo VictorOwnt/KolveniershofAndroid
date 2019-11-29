@@ -1,4 +1,3 @@
-<!-- PROJECT LOGO -->
 <p align="center"><img src="./app/src/main/ic_launcher-web.png?raw=true" width="200px"/></p>
 
 <h1 align="center">Kolveniershof Android application</h1>
@@ -8,7 +7,7 @@ The 'Kolveniershof' Android application is an application made to guide mentally
 Users can log in anywhere to view their schedule and possibly provide comments.
 In the day care institution itself, supervisors can request the planning of each client and go over it with the client.
 
-It is not intended that this application is used to adjust the schedule.
+> It is not intended that this application is used to adjust the schedule.
 
 This project is part of the [Project III: Mobile apps](https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=110488&b=1&c=1) course for the Bachelor of Applied Informatics at the Ghent University College [HoGent](https://www.hogent.be/en/) (Academic year 2019-2020).
 
@@ -54,6 +53,20 @@ You can download the application on the Google Play store.
 
 3. Run the project on an emulator or physical device
 
+#### Dummy login
+
+Use the login credentials stated below to test the project's functionality.
+
+Client:
+
+- Email: *`client@mail.com`*
+- Password: *`test00##`*
+
+Supervisor:
+
+- Email: *`mentor@mail.com`*
+- Password: *`test00##`*
+
 ### Generating signed APK
 
 From Android Studio:
@@ -67,8 +80,8 @@ From Android Studio:
 This application relies on a REST backend server.
 
 1. Open the `Constants.kt` file located in the `util` package.
-
 2. Change the value for `BASE_URL` to your own link.
+3. Create a new Firebase project and change the `google-services.json` file accordingly.
 
 The sourcecode for this server is located [here](https://github.com/HoGent-Projecten3/projecten3-1920-backend-kolv02). The server is hosted by [Heroku](https://www.heroku.com/) [![Heroku Backend Status](http://heroku-shields.herokuapp.com/kolv02-backend)](https://kolv02-backend.herokuapp.com).
 
