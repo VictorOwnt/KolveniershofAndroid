@@ -14,7 +14,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuView
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -66,6 +68,7 @@ class MainActivity :
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
 
         // The detail container view will be present only in the large-screen layouts (res/values-w900dp).
         // If this view is present, then the activity should be in two-pane mode.
@@ -182,10 +185,13 @@ class MainActivity :
             }
             R.id.action_userSelector ->{
 
+               // setContentView(R.layout.user_list)
 
                 fillListView()
+                main_content_container.visibility = View.GONE
             }
         }
+
 
         return true
 
@@ -245,14 +251,28 @@ class MainActivity :
     private fun openDetailFragmentOfSelectedUser(
         newFragment: Fragment
     ) {
-        this.supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.main_detail_container, newFragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .addToBackStack(null)
-            .commit()
+        if(twoPane) {
+            this.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_detail_container, newFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(null)
+                .commit()
+        }else{
+            this.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_content_container, newFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(null)
+                .commit()
+            user_list_container.visibility = View.GONE
+            main_content_container.visibility = View.VISIBLE
+
+        }
     }
     private fun fillListView(){
+        if(!twoPane)
+        user_list_container.visibility = View.VISIBLE
         clientsListView = findViewById(R.id.user_list)
         val clients = UserViewModel().getClients().blockingFirst()
         val adapter = UserAdapter(this.applicationContext, clients)
@@ -271,7 +291,10 @@ class MainActivity :
                 clickedUser.firstName + " " + clickedUser.lastName,
                 Toast.LENGTH_SHORT
             ).show()
+
+
         }
+
     }
 
     fun hideKeyboard() {
