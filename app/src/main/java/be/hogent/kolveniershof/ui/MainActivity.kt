@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -29,6 +30,7 @@ import com.google.firebase.storage.StorageException
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.user_list.*
 import org.joda.time.DateTime
 import java.util.*
 
@@ -65,32 +67,17 @@ class MainActivity :
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-
         // The detail container view will be present only in the large-screen layouts (res/values-w900dp).
         // If this view is present, then the activity should be in two-pane mode.
-        if (main_detail_container != null && sharedPreferences.getBoolean("ADMIN", false)) {
+        if (main_detail_container != null ) {
             twoPane = true
-            clientsListView = findViewById(R.id.user_list)
-            val clients = UserViewModel().getClients().blockingFirst()
-            val adapter = UserAdapter(this.applicationContext, clients)
-            clientsListView.adapter = adapter
-            clientsListView.setOnItemClickListener { parent, view, position, id ->
-
-                clickedUser = parent.getItemAtPosition(position) as User
-                openDetailFragmentOfSelectedUser(
-                    DateSelectorFragment.newInstance(
-                        DateTime(year, month + 1, day, 0, 0, 0),
-                        clickedUser.id
-                    )
-                )
-                Toast.makeText(
-                    this,
-                    clickedUser.firstName + " " + clickedUser.lastName,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
         }
+        if(sharedPreferences.getBoolean("ADMIN", false) && twoPane){
+            fillListView()
+        }
+
+
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
@@ -193,6 +180,11 @@ class MainActivity :
                 }, year, month, day)
                 datePickerDialog.show()
             }
+            R.id.action_userSelector ->{
+
+
+                fillListView()
+            }
         }
 
         return true
@@ -259,6 +251,27 @@ class MainActivity :
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .addToBackStack(null)
             .commit()
+    }
+    private fun fillListView(){
+        clientsListView = findViewById(R.id.user_list)
+        val clients = UserViewModel().getClients().blockingFirst()
+        val adapter = UserAdapter(this.applicationContext, clients)
+        clientsListView.adapter = adapter
+        clientsListView.setOnItemClickListener { parent, view, position, id ->
+
+            clickedUser = parent.getItemAtPosition(position) as User
+            openDetailFragmentOfSelectedUser(
+                DateSelectorFragment.newInstance(
+                    DateTime(year, month + 1, day, 0, 0, 0),
+                    clickedUser.id
+                )
+            )
+            Toast.makeText(
+                this,
+                clickedUser.firstName + " " + clickedUser.lastName,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     fun hideKeyboard() {
