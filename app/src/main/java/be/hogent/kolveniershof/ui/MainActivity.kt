@@ -1,9 +1,11 @@
 package be.hogent.kolveniershof.ui
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -55,7 +57,7 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = getSharedPreferences("USER_CREDENTIALS", Context.MODE_PRIVATE)
-
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
         
         // Check is user is logged in
         if (!sharedPreferences.getBoolean("ISLOGGEDIN", false)) {

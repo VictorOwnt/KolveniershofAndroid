@@ -125,5 +125,14 @@ interface KolvApi {
         @Field("comment") comment: String
     ): Single<Comment>
 
+    @FormUrlEncoded
+    @PATCH("workdays/id/{workdayId}/comments/{commentId}")
+    fun patchComment(
+        @Header("Authorization") authToken: String,
+        @Path("workdayId") workdayId: String,
+        @Path("commentId") commentId: String,
+        @Field("comment") comment: String
+    ): Single<Comment>
+
 
 }

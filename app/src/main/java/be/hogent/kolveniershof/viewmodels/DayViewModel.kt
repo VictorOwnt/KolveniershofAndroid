@@ -1,6 +1,5 @@
 package be.hogent.kolveniershof.viewmodels
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import be.hogent.kolveniershof.api.KolvApi
@@ -88,11 +87,17 @@ class DayViewModel : BaseViewModel() {
     }
 
     fun postComment(authToken: String, workdayId: String, commentText: String) {
-
-
         try {
             kolvApi.postComment(authToken, workdayId, commentText)
         } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+    fun patchComment(authToken: String,workdayId: String,commentText: String,userComment: Comment?)
+    {
+        try{
+           // kolvApi.patchComment(authToken,workdayId,userComment!!.id,)
+        }catch (e:Exception){
             e.printStackTrace()
         }
     }
