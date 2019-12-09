@@ -40,6 +40,7 @@
     <string name="required">Verplicht</string>
 
     <string name="comment_hint">Voeg een opmerking toe</string>
+    <string name="comment_enter">Druk op enter om te versturen.</string>
 
     <string name="holiday">Vrijaf</string>
     <string name="empty_day">Nog geen planning</string>
