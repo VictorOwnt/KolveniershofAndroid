@@ -251,13 +251,8 @@ class DayFragment : Fragment() {
     private fun showWeekend(view: View, workday: Workday) {
         val comments = workday.comments
         inputComment = view.findViewById(R.id.input_comment)
-        var userComment: Comment? = null
-        comments.forEach {
-            if (it.user.id == ARG_USER_ID) {
-                userComment = it
-                inputComment.append(it.comment + "\n")
-            }
-        }
+        val userComment: Comment? = comments[0]
+        inputComment.append(comments[0].comment)
 
         buttonSendComment = view.findViewById(R.id.buttonSendComment)
 
@@ -265,19 +260,10 @@ class DayFragment : Fragment() {
             if (checkCommentIsEmpty(userComment) /*&& !isAdmin*/) {
                 addNewComment(workday.id, inputComment)
             } else {
-                patchComment(userComment)
+                userComment!!.comment = inputComment.text.toString()
+                viewModel.patchComment(sharedPrefs.getString("TOKEN", "")!!, workday.id, userComment)
             }
         }
-    }
-
-    private fun patchComment(userComment: Comment?) {
-
-        viewModel.patchComment(
-            sharedPrefs.getString("TOKEN", "")!!,
-            viewModel.workday.value!!.id,
-            sharedPrefs.getString("ID", "")!!,
-            userComment
-        )
     }
 
     private fun addNewComment(
@@ -343,13 +329,13 @@ class DayFragment : Fragment() {
                 // Activity name
                 textAmActivity1.text = activityUnits[0].toString()
                 loadMentorImage(
-                    activityUnits[0]!!.mentors.toTypedArray(),
+                    activityUnits[0].mentors.toTypedArray(),
                     imageAmMentor1,
                     textAmMentor1Amount
                 )
                 // Mentor image
                 loadMentorImage(
-                    activityUnits[0]!!.mentors.toTypedArray(),
+                    activityUnits[0].mentors.toTypedArray(),
                     imageAmMentor1,
                     textAmMentor1Amount
                 )

@@ -93,10 +93,10 @@ class DayViewModel : BaseViewModel() {
             e.printStackTrace()
         }
     }
-    fun patchComment(authToken: String,workdayId: String,commentText: String,userComment: Comment?)
+    fun patchComment(authToken: String, workdayId: String, comment: Comment)
     {
         try{
-           // kolvApi.patchComment(authToken,workdayId,userComment!!.id,)
+            kolvApi.patchComment(authToken, workdayId, comment.id, comment.comment)
         }catch (e:Exception){
             e.printStackTrace()
         }
