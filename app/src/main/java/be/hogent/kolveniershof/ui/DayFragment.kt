@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -209,6 +210,8 @@ class DayFragment : Fragment() {
                         showBus(view, null, false)
                     else
                         showBus(view, workday.eveningBusses[0], false)
+
+                    setOnclickListenerComments(view,workday)
                 }
             }
         })
@@ -249,13 +252,32 @@ class DayFragment : Fragment() {
     }
 
     private fun showWeekend(view: View, workday: Workday) {
+        setOnclickListenerComments(view,workday)
+    }
+    private fun setOnclickListenerComments(view: View, workday: Workday){
         val comments = workday.comments
         inputComment = view.findViewById(R.id.input_comment)
-        val userComment: Comment? = comments[0]
-        inputComment.append(comments[0].comment)
+        var userComment: Comment? = null
+        try {
+            userComment = comments[0]
+            inputComment.append(comments[0].comment)
+        }catch (e : Exception){}
 
-        buttonSendComment = view.findViewById(R.id.buttonSendComment)
+        try {
+            buttonSendComment = view.findViewById(R.id.buttonSendComment)
+        }catch (e : Exception) {
+            inputComment.setOnEditorActionListener{ v, actionId, event ->
+                        if (checkCommentIsEmpty(userComment) /*&& !isAdmin*/) {
+                            addNewComment(workday.id, inputComment)
+                        } else {
+                            userComment!!.comment = inputComment.text.toString()
+                            viewModel.patchComment(sharedPrefs.getString("TOKEN", "")!!, workday.id, userComment)
+                        }
 
+                    true
+
+            }
+        }
         buttonSendComment.setOnClickListener {
             if (checkCommentIsEmpty(userComment) /*&& !isAdmin*/) {
                 addNewComment(workday.id, inputComment)
@@ -264,7 +286,8 @@ class DayFragment : Fragment() {
                 viewModel.patchComment(sharedPrefs.getString("TOKEN", "")!!, workday.id, userComment)
             }
         }
-    }
+
+        }
 
     private fun addNewComment(
         workdayId: String,
