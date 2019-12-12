@@ -15,8 +15,8 @@ import java.util.*
 
 class DateButton(context: Context, attrs: AttributeSet): LinearLayout(context, attrs) {
 
-    private val dateTextView: TextView
-    private val monthTextView: TextView
+     val dateTextView: TextView
+     val monthTextView: TextView
 
     init {
         inflate(context, R.layout.view_date_button, this)
@@ -49,4 +49,5 @@ class DateButton(context: Context, attrs: AttributeSet): LinearLayout(context, a
         dateTextView.text = date.toString("dd")
         monthTextView.text = date.toString("MMM")
     }
+
 }

@@ -29,14 +29,11 @@ import org.junit.Rule
 @RunWith(AndroidJUnit4::class)
 class LoginTest {
 
+
     @Rule
     @JvmField
     val rule: ActivityTestRule<MainActivity> = ActivityTestRule((MainActivity::class.java))
 
-    @Before
-    fun setup(){
-
-    }
     @Test
     fun logout(){
         //Open the menu
