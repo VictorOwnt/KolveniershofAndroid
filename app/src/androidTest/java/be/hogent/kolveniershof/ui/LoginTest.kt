@@ -50,6 +50,7 @@ class LoginTest {
         onView(withId(R.id.button_sign_in)).perform(scrollTo(),click())
         onView(withId(R.id.dateSelectorMinusOne)).check(matches(isDisplayed()))
 
+
     }
 
     @Test
