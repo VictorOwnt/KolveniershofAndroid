@@ -29,11 +29,6 @@ class ClientAddComment{
     }
 
     @Test
-    fun addCommentOnWeekDay(){
-
-        onView(withId(R.id.input_comment)).perform(typeText("Testing"))
-    }
-    @Test
     fun addCommentOnWeekend(){
         onView(withId(R.id.action_calendar)).perform(click())
         onView(withId(R.id.main_content_container)).perform(ViewActions.swipeRight())

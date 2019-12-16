@@ -228,7 +228,7 @@ class MainActivity :
         if (twoPane && sharedPreferences.getBoolean("ADMIN", false)) {
             this.supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_detail_container, newFragment)
+                .replace(R.id.main_content_container, newFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit()
@@ -250,7 +250,7 @@ class MainActivity :
         if(twoPane) {
             this.supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_detail_container, newFragment)
+                .replace(R.id.main_content_container, newFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit()

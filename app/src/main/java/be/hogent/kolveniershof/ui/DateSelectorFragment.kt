@@ -225,10 +225,5 @@ class DateSelectorFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onSaveInstanceState(savedInstanceState: Bundle) {
-        if (!tablet)
-            mPager.adapter = null
-        super.onSaveInstanceState(savedInstanceState)
-    }
 
 }
