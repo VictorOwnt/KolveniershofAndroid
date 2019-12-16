@@ -28,30 +28,31 @@ import java.util.*
 @RunWith(AndroidJUnit4::class/*RobolectricTestRunner::class*/)
 class ClientNavigateTest{
 
+    private val util=UtilTestMethods()
     @Rule
     @JvmField
     val rule: ActivityTestRule<MainActivity> = ActivityTestRule((MainActivity::class.java))
     @Before
     fun setup(){
-        logout()
-        login()
+        util.logout()
+        util.loginClient()
     }
 
     @Test
     fun swipeToNextDay(){
         //Check if set to current day
-        checkDay(0)
+        util.checkDay(0,rule)
         //Check ability to swipe to next day
         onView(withId(R.id.main_content_container)).perform(ViewActions.swipeLeft())
         //Check if day equals current day +1
-        checkDay(1)
+        util.checkDay(1,rule)
 
     }
     @Test
     fun clickToNextDay(){
-        checkDay(0)
+        util.checkDay(0,rule)
         onView(withId(R.id.dateSelectorPlusOne)).perform(click())
-        checkDay(1)
+        util.checkDay(1,rule)
 
     }
     @Test
@@ -70,34 +71,10 @@ class ClientNavigateTest{
         assertEquals(dialog.datePicker.month, expectedMonth)
         assertEquals(dialog.datePicker.year, expectedYear)*/
     }
-    private fun checkDay(i: Int) {
-        val date =  rule.activity.findViewById<DateButton>(R.id.dateSelectorNow)
-        assertEquals(date.dateTextView.text,DateTime.now().plusDays(i).toString("dd"))
-        assertEquals(date.monthTextView.text,DateTime.now().plusDays(i).toString("MMM"))
-    }
-
-    private fun logout(){
-        //Open the menu
-        try {
-            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
-            onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen()))
-
-            onView(withId(R.id.nav_view))
-                .perform(NavigationViewActions.navigateTo(R.id.nav_logout))
-        }catch(e:Exception){
-
-        }
+    @Test
+    fun showTextIfEmptyDay(){
 
     }
 
-    private fun login(){
-        onView(withId(R.id.input_email))
-            .perform(ViewActions.typeText("client1@gmail.com"))
-        onView(withId(R.id.input_password))
-            .perform(ViewActions.scrollTo(), ViewActions.typeText("test00##"))
-        onView(withId(R.id.button_sign_in))
-            .perform(ViewActions.scrollTo(), click())
 
-
-    }
 }

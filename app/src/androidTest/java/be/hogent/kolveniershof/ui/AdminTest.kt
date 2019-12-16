@@ -22,13 +22,14 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class AdminTest{
 
+   private val util=UtilTestMethods()
     @Rule
     @JvmField
     val rule: ActivityTestRule<MainActivity> = ActivityTestRule((MainActivity::class.java))
     @Before
     fun setup(){
-        logout()
-        login()
+        util.logout()
+        util.loginAdmin()
     }
 
     @Test
@@ -40,28 +41,8 @@ class AdminTest{
         //Check if shown workday = workday of selected user
     }
 
-    private fun logout(){
-        //Open the menu
-        try {
-            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
-            onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen()))
-
-            onView(withId(R.id.nav_view))
-                .perform(NavigationViewActions.navigateTo(R.id.nav_logout))
-        }catch(e:Exception){
-            //Catch if user is already logged in
-        }
-
-    }
-
-    private fun login(){
-        onView(withId(R.id.input_email))
-            .perform(ViewActions.typeText("admin1@gmail.com"))
-        onView(withId(R.id.input_password))
-            .perform(ViewActions.scrollTo(), ViewActions.typeText("test00##"))
-        onView(withId(R.id.button_sign_in))
-            .perform(ViewActions.scrollTo(), click())
 
 
-    }
+
+
 }

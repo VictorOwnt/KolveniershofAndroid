@@ -77,10 +77,7 @@ class DateSelectorFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        // The detail container view will be present only in the large-screen layouts (res/values-w900dp).
-        // If this view is present, then the fragment should be in tablet mode.
-        if (activity!!.main_detail_container != null)
-            tablet = true
+
 
     }
 
@@ -99,6 +96,10 @@ class DateSelectorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // The detail container view will be present only in the large-screen layouts (res/values-w900dp).
+        // If this view is present, then the fragment should be in tablet mode.
+        if (activity!!.main_detail_container != null)
+            tablet = true
         if (!tablet) {
             dateSelectorMinusTwo = view.findViewById(R.id.dateSelectorMinusTwo)
             dateSelectorMinusOne = view.findViewById(R.id.dateSelectorMinusOne)

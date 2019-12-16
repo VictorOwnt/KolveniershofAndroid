@@ -240,13 +240,7 @@ class MainActivity :
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit()
-            if (main_detail_container != null) {
-                main_detail_container?.visibility = View.GONE
-                main_content_container.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT
-                )
-            }
+
         }
     }
 
