@@ -9,9 +9,22 @@
     tools:showIn="@layout/app_bar_main"
     tools:context=".ui.MainActivity">
 
+
     <FrameLayout
         android:id="@+id/main_content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <FrameLayout
+        android:id="@+id/user_list_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/main_content_container"
+        app:layout_constraintTop_toTopOf="@id/main_content_container">
+
+        <include
+            layout="@layout/user_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

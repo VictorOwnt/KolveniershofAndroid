@@ -9,10 +9,17 @@
         tools:showIn="@layout/app_bar_main"
         tools:context=".ui.MainActivity">
 
+
     <FrameLayout
-            android:id="@+id/main_content_container"
+            android:id="@+id/main_detail_container"
             android:layout_width="@dimen/list_width"
             android:layout_height="match_parent">
+
+
+        <include
+            layout="@layout/user_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </FrameLayout>
 
     <View
@@ -23,7 +30,7 @@
     />
 
     <FrameLayout
-            android:id="@+id/main_detail_container"
+            android:id="@+id/main_content_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

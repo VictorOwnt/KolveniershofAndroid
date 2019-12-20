@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -33,20 +33,26 @@ import java.util.*
 
 private const val ARG_WORKDAY_DATE = "workdayDate"
 private const val ARG_WORKDAY_WEEKEND = "isWeekend"
+private const val ARG_USER_ID = "userId"
 
 class DayFragment : Fragment() {
 
-    private var workdayDate : String? = null
+    private var workdayDate: String? = null
     private var isWeekend: Boolean? = null
     private var isEmpty: Boolean = false
+    private var userId: String? = null
 
     companion object {
         @JvmStatic
-        fun newInstance(workdayDate: DateTime) =
+        fun newInstance(workdayDate: DateTime, userId: String?) =
             DayFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_WORKDAY_DATE, workdayDate.toString("dd_MM_yyyy"))
-                    putBoolean(ARG_WORKDAY_WEEKEND, (workdayDate.dayOfWeek == 6 || workdayDate.dayOfWeek == 7))
+                    putBoolean(
+                        ARG_WORKDAY_WEEKEND,
+                        (workdayDate.dayOfWeek == 6 || workdayDate.dayOfWeek == 7)
+                    )
+                    putString(ARG_USER_ID, userId)
                 }
             }
     }
@@ -94,6 +100,7 @@ class DayFragment : Fragment() {
         arguments?.let {
             workdayDate = it.getString(ARG_WORKDAY_DATE)
             isWeekend = it.getBoolean(ARG_WORKDAY_WEEKEND)
+            userId = it.getString(ARG_USER_ID)
         }
 
         // Get shared preferences
@@ -102,8 +109,15 @@ class DayFragment : Fragment() {
         // Instantiate viewModel
         viewModel = ViewModelProviders.of(this).get(DayViewModel::class.java)
 
+
         // Get workday
-        arguments?.getString("workdayDate")?.let { viewModel.getWorkdayByDateByUser(sharedPrefs.getString("TOKEN", "")!!, it, sharedPrefs.getString("ID", "")!!) }
+        arguments?.getString("workdayDate")?.let {
+            viewModel.getWorkdayByDateByUser(
+                sharedPrefs.getString("TOKEN", "")!!,
+                it,
+                userId!!
+            )
+        }
         viewModel.workday.removeObservers(this)
     }
 
@@ -112,49 +126,71 @@ class DayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var root: View?
-        val workday: Workday? = viewModel.getWorkdayByDateByUserSync(sharedPrefs.getString("TOKEN", "")!!, arguments?.getString("workdayDate")!!, sharedPrefs.getString("ID", "")!!)
+        val workday: Workday? = viewModel.getWorkdayByDateByUserSync(
+            sharedPrefs.getString("TOKEN", "")!!,
+            arguments?.getString("workdayDate")!!,
+            userId!!
+        )
         when {
-                workday == null -> {
-                    isEmpty = true
-                    val binding: FragmentEmptyHolidayBinding =
-                        DataBindingUtil.inflate(inflater, R.layout.fragment_empty_holiday, container, false)
-                    binding.viewmodel = viewModel
-                    binding.lifecycleOwner = this.viewLifecycleOwner
-                    root = binding.root
-                }
-                isWeekend!! -> {
-                    val binding: FragmentWeekendBinding =
-                        DataBindingUtil.inflate(inflater, R.layout.fragment_weekend, container, false)
-                    binding.viewmodel = viewModel
-                    binding.lifecycleOwner = this.viewLifecycleOwner
-                    root = binding.root
-                }
-                workday.isHoliday!! -> {
-                    val binding: FragmentEmptyHolidayBinding =
-                        DataBindingUtil.inflate(inflater, R.layout.fragment_empty_holiday, container, false)
-                    binding.viewmodel = viewModel
-                    binding.lifecycleOwner = this.viewLifecycleOwner
-                    root = binding.root
-                }
-                else -> {
-                    val binding: FragmentDayBinding =
-                        DataBindingUtil.inflate(inflater, R.layout.fragment_day, container, false)
-                    binding.viewmodel = viewModel
-                    binding.lifecycleOwner = this.viewLifecycleOwner
-                    root = binding.root
-                }
+            workday == null -> {
+                isEmpty = true
+                val binding: FragmentEmptyHolidayBinding =
+                    DataBindingUtil.inflate(
+                        inflater,
+                        R.layout.fragment_empty_holiday,
+                        container,
+                        false
+                    )
+                binding.viewmodel = viewModel
+                binding.lifecycleOwner = this.viewLifecycleOwner
+                root = binding.root
             }
+            isWeekend!! -> {
+                val binding: FragmentWeekendBinding =
+                    DataBindingUtil.inflate(inflater, R.layout.fragment_weekend, container, false)
+                binding.viewmodel = viewModel
+                binding.lifecycleOwner = this.viewLifecycleOwner
+                root = binding.root
+            }
+            workday.isHoliday!! -> {
+                val binding: FragmentEmptyHolidayBinding =
+                    DataBindingUtil.inflate(
+                        inflater,
+                        R.layout.fragment_empty_holiday,
+                        container,
+                        false
+                    )
+                binding.viewmodel = viewModel
+                binding.lifecycleOwner = this.viewLifecycleOwner
+                root = binding.root
+            }
+            else -> {
+                val binding: FragmentDayBinding =
+                    DataBindingUtil.inflate(inflater, R.layout.fragment_day, container, false)
+                binding.viewmodel = viewModel
+                binding.lifecycleOwner = this.viewLifecycleOwner
+                root = binding.root
+            }
+        }
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Fill view with content
-        showDay(view, DateTime.parse(workdayDate, DateTimeFormat.forPattern("dd_MM_yyyy").withLocale(Locale.getDefault())))
+        showDay(
+            view,
+            DateTime.parse(
+                workdayDate,
+                DateTimeFormat.forPattern("dd_MM_yyyy").withLocale(Locale.getDefault())
+            )
+        )
         if (isEmpty) showEmptyDay(view, false)
         viewModel.workday.observe(this, Observer { workday ->
             when {
-                isWeekend!! -> showWeekend(view, workday.comments[0].toString()) // todo
+                isWeekend!! -> showWeekend(
+                    view,
+                    workday)
                 workday.isHoliday!! -> showEmptyDay(view, true)
                 else -> {
                     if (workday.morningBusses.isNullOrEmpty())
@@ -174,6 +210,8 @@ class DayFragment : Fragment() {
                         showBus(view, null, false)
                     else
                         showBus(view, workday.eveningBusses[0], false)
+
+                    setOnclickListenerComments(view,workday)
                 }
             }
         })
@@ -197,7 +235,7 @@ class DayFragment : Fragment() {
             R.drawable.ic_day_flower_bouquet,
             R.drawable.ic_day_sun
         )
-        imageDayIcon.setImageResource(icons[date.dayOfWeek-1])
+        imageDayIcon.setImageResource(icons[date.dayOfWeek - 1])
         textDayName.text = date.toString("EEEE").capitalize()
     }
 
@@ -213,14 +251,59 @@ class DayFragment : Fragment() {
         }
     }
 
-    private fun showWeekend(view: View, comment: String?) {
-        inputComment = view.findViewById(R.id.input_comment)
-        buttonSendComment = view.findViewById(R.id.buttonSendComment)
-        // Fill comment if present
-        if (!comment.isNullOrBlank()) {
-            inputComment.text = Editable.Factory.getInstance().newEditable(comment)
-        }
+    private fun showWeekend(view: View, workday: Workday) {
+        setOnclickListenerComments(view,workday)
     }
+    private fun setOnclickListenerComments(view: View, workday: Workday){
+        val comments = workday.comments
+        inputComment = view.findViewById(R.id.input_comment)
+        var userComment: Comment? = null
+        try {
+            userComment = comments[0]
+            inputComment.append(comments[0].comment)
+        }catch (e : Exception){}
+
+        try {
+            buttonSendComment = view.findViewById(R.id.buttonSendComment)
+        }catch (e : Exception) {
+            inputComment.setOnEditorActionListener{ v, actionId, event ->
+                        if (checkCommentIsEmpty(userComment) /*&& !isAdmin*/) {
+                            addNewComment(workday.id, inputComment)
+                        } else {
+                            userComment!!.comment = inputComment.text.toString()
+                            viewModel.patchComment(sharedPrefs.getString("TOKEN", "")!!, workday.id, userComment)
+                        }
+
+                    true
+
+            }
+        }
+        buttonSendComment.setOnClickListener {
+            if (checkCommentIsEmpty(userComment) /*&& !isAdmin*/) {
+                addNewComment(workday.id, inputComment)
+            } else {
+                userComment!!.comment = inputComment.text.toString()
+                viewModel.patchComment(sharedPrefs.getString("TOKEN", "")!!, workday.id, userComment)
+            }
+        }
+
+        }
+
+    private fun addNewComment(
+        workdayId: String,
+        userComment: TextInputEditText
+    ) {
+        viewModel.postComment(sharedPrefs.getString("TOKEN", "")!!, workdayId,userComment.text.toString())
+    }
+
+    private fun checkCommentIsEmpty(userComment: Comment?): Boolean {
+
+        if (userComment == null) {
+            return true
+        }
+        return false
+    }
+
 
     private fun showBus(view: View, busUnit: BusUnit?, isMorning: Boolean) {
         if (isMorning) {
@@ -268,9 +351,17 @@ class DayFragment : Fragment() {
                 imageAmActivity1.setImageResource(getActivityImage(activityUnits[0].getImageName()))
                 // Activity name
                 textAmActivity1.text = activityUnits[0].toString()
-                loadMentorImage(activityUnits[0]!!.mentors.toTypedArray(), imageAmMentor1, textAmMentor1Amount)
+                loadMentorImage(
+                    activityUnits[0].mentors.toTypedArray(),
+                    imageAmMentor1,
+                    textAmMentor1Amount
+                )
                 // Mentor image
-                loadMentorImage(activityUnits[0]!!.mentors.toTypedArray(), imageAmMentor1, textAmMentor1Amount)
+                loadMentorImage(
+                    activityUnits[0].mentors.toTypedArray(),
+                    imageAmMentor1,
+                    textAmMentor1Amount
+                )
 
                 if (activityUnits.size > 1) {
                     // Activity image
@@ -278,7 +369,11 @@ class DayFragment : Fragment() {
                     // Activity name
                     textAmActivity2.text = activityUnits[1].toString()
                     // Mentor image
-                    loadMentorImage(activityUnits[1].mentors.toTypedArray(), imageAmMentor2, textAmMentor2Amount)
+                    loadMentorImage(
+                        activityUnits[1].mentors.toTypedArray(),
+                        imageAmMentor2,
+                        textAmMentor2Amount
+                    )
                 } else {
                     // Hide items for am activity 2
                     imageAmActivity2.visibility = View.GONE
@@ -312,14 +407,22 @@ class DayFragment : Fragment() {
                 // Activity name
                 textPmActivity1.text = activityUnits[0].toString()
                 // Mentor image
-                loadMentorImage(activityUnits[0].mentors.toTypedArray(), imagePmMentor1, textPmMentor1Amount)
+                loadMentorImage(
+                    activityUnits[0].mentors.toTypedArray(),
+                    imagePmMentor1,
+                    textPmMentor1Amount
+                )
                 if (activityUnits.size > 1) {
                     // Activity image
                     imagePmActivity2.setImageResource(getActivityImage(activityUnits[1].getImageName()))
                     // Activity name
                     textPmActivity2.text = activityUnits[1].toString()
                     // Mentor image
-                    loadMentorImage(activityUnits[1].mentors.toTypedArray(), imagePmMentor2, textPmMentor2Amount)
+                    loadMentorImage(
+                        activityUnits[1].mentors.toTypedArray(),
+                        imagePmMentor2,
+                        textPmMentor2Amount
+                    )
                 } else {
                     // Hide items for pm activity 2
                     imagePmActivity2.visibility = View.GONE
@@ -357,8 +460,12 @@ class DayFragment : Fragment() {
         }
     }
 
-    private fun getActivityImage(imageName: String) : Int {
-        return resources.getIdentifier("ic_activity_${imageName.replace("-", "_")}", "drawable", activity!!.packageName)
+    private fun getActivityImage(imageName: String): Int {
+        return resources.getIdentifier(
+            "ic_activity_${imageName.replace("-", "_")}",
+            "drawable",
+            activity!!.packageName
+        )
     }
 
     private fun loadMentorImage(mentors: Array<User>, imageView: ImageView, textView: TextView) {
@@ -367,7 +474,7 @@ class DayFragment : Fragment() {
         val mentorImg = try {
             FirebaseStorage.getInstance().reference.child(imgUrl!!)
         } catch (e: Exception) {
-            when(e) {
+            when (e) {
                 is StorageException, is IllegalArgumentException, is KotlinNullPointerException -> null
                 else -> throw e
             }

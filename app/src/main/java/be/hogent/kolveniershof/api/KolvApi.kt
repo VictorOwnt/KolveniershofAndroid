@@ -1,5 +1,6 @@
 package be.hogent.kolveniershof.api
 
+import be.hogent.kolveniershof.model.Comment
 import be.hogent.kolveniershof.model.User
 import be.hogent.kolveniershof.model.Workday
 import io.reactivex.Observable
@@ -32,6 +33,23 @@ interface KolvApi {
     @POST("users/isValidEmail")
     fun isValidEmail(@Field("email") email: String): Single<Boolean>
 
+    /**
+     * Gets all users
+     *
+     *
+     * @return list of all users
+     */
+    @GET("users/")
+    fun getUsers(): Observable<List<User>>
+
+    /**
+     * Gets all clients
+     *
+     *
+     * @return list of all clients
+     */
+    @GET("users/clients")
+    fun getClients(): Observable<List<User>>
     /**
      * Gets user by email
      *
@@ -79,5 +97,42 @@ interface KolvApi {
      */
     @GET("workdays/date/{date}/{user}")
     fun getWorkdayByDateByUser(@Header("Authorization") authToken: String, @Path("date") dateString: String, @Path("user") userId: String) : Observable<Workday>
+
+    /**
+     * Gets week of workdays by date in week by user
+     *
+     * @param authToken
+     * @param dateString
+     * @param userId
+     * @return
+     */
+    @GET("workdays/week/{weekdate}/{user}")
+    fun getWeekByDateByUser(@Header("Authorization") authToken: String, @Path("weekdate") dateString: String, @Path("user") userId: String) : Observable<List<Workday>>
+
+    /**
+     * Gets week of workdays by date in week by user
+     *
+     * @param authToken
+     * @param workdayId
+     * @param comment
+     *
+     */
+    @FormUrlEncoded
+    @POST("workdays/id/{workdayId}/comments")
+    fun postComment(
+        @Header("Authorization") authToken: String,
+        @Path("workdayId") workdayId: String,
+        @Field("comment") comment: String
+    ): Single<Comment>
+
+    @FormUrlEncoded
+    @PATCH("workdays/id/{workdayId}/comments/{commentId}")
+    fun patchComment(
+        @Header("Authorization") authToken: String,
+        @Path("workdayId") workdayId: String,
+        @Path("commentId") commentId: String,
+        @Field("comment") comment: String
+    ): Single<Comment>
+
 
 }

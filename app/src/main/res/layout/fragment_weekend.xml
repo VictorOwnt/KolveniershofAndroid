@@ -42,9 +42,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:textColor="@color/colorText"
-                        android:textSize="@dimen/font_size_huge"
-                        android:textStyle="bold"
+                        style="@style/TextAppearance.Day.Title"
                         tools:text="Zaterdag" />
 
                     <ImageView
@@ -91,7 +89,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:text="@string/action_send"
                     app:icon="@drawable/ic_comment"
                     app:layout_constraintBottom_toBottomOf="parent"

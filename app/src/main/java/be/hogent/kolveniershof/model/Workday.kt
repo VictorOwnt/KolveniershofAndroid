@@ -47,7 +47,7 @@ data class Comment(
     @field:Json(name = "_id")
     val id: String,
     @field:Json(name = "comment")
-    val comment: String,
+    var comment: String,
     @field:Json(name = "user")
     val user: User
 ) : Parcelable {

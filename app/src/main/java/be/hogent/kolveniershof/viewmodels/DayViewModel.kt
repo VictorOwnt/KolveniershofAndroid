@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import be.hogent.kolveniershof.api.KolvApi
 import be.hogent.kolveniershof.base.BaseViewModel
+import be.hogent.kolveniershof.model.Comment
 import be.hogent.kolveniershof.model.Workday
 import com.orhanobut.logger.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -69,6 +70,36 @@ class DayViewModel : BaseViewModel() {
             onRetrieveFinish()
         }
         return workday
+    }
+
+    fun getWeekByDateByUser(authToken: String, date: String, userId: String) {
+        disposables.add(
+            kolvApi.getWeekByDateByUser(authToken, date, userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { onRetrieveStart() }
+                .doOnTerminate { onRetrieveFinish() }
+                .subscribe(
+                    { result -> onRetrieveListSuccess(result) },
+                    { error -> onRetrieveError(error) }
+                )
+        )
+    }
+
+    fun postComment(authToken: String, workdayId: String, commentText: String) {
+        try {
+            kolvApi.postComment(authToken, workdayId, commentText)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+    fun patchComment(authToken: String, workdayId: String, comment: Comment)
+    {
+        try{
+            kolvApi.patchComment(authToken, workdayId, comment.id, comment.comment)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 
     private fun onRetrieveSingleSuccess(result: Workday) {
