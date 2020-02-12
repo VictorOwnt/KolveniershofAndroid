@@ -1,3 +1,5 @@
+**NOTE: This was a group assignment. View all commits carefully to get an insight into my abilities. The end result is suboptimal due to complications during this project. Please contact me for more information.**
+
 <p align="center"><img src="./app/src/main/ic_launcher-web.png?raw=true" width="200px"/></p>
 
 <h1 align="center">Kolveniershof Android application</h1>
@@ -42,13 +44,13 @@ You can download the application on the Google Play store.
 1. Clone this repo
 
     ```bash
-    git clone https://github.com/HoGent-Projecten3/projecten3-1920-android-kolv02
+    git clone https://github.com/VictorOwnt/KolveniershofAndroid
     ```
 
 2. Open the project in Android Studio
 
     ```bash
-    studio projecten3-1920-android-kolv02
+    studio KolveniershofAndroid
     ```
 
 3. Run the project on an emulator or physical device
@@ -83,7 +85,7 @@ This application relies on a REST backend server.
 2. Change the value for `BASE_URL` to your own link.
 3. Create a new Firebase project and change the `google-services.json` file accordingly.
 
-The sourcecode for this server is located [here](https://github.com/HoGent-Projecten3/projecten3-1920-backend-kolv02). The server is hosted by [Heroku](https://www.heroku.com/) [![Heroku Backend Status](http://heroku-shields.herokuapp.com/kolv02-backend)](https://kolv02-backend.herokuapp.com).
+The sourcecode for this server is located [here](https://github.com/VictorOwnt/KolveniershofBackend). The server is hosted by [Heroku](https://www.heroku.com/) [![Heroku Backend Status](http://heroku-shields.herokuapp.com/kolv02-backend)](https://kolv02-backend.herokuapp.com).
 
 ## Built With
 
